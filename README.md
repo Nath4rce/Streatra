@@ -33,11 +33,9 @@ vendedor por WhatsApp, sin necesidad de conexion a internet dentro de la app
 
 ## Equipo
 
-- Juan David Parra Sierra
-- Santiago Viana Ayala
+- Juan Felipe Cano Noreña
 - Natalia Arce Peñuela
 - Miguel Angel Ramirez Velasquez
-- Sara Soto Solis
 
 ## Estructura del proyecto
 
