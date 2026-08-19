@@ -1,0 +1,70 @@
+// ===================================
+// Reset y estilos base
+// ===================================
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-body;
+  background-color: $color-bg;
+  color: $color-text;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: $color-bg;
+  position: relative;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+// Franja de marca (reutilizada en cada pantalla, segun lo definido en Figma)
+.brand-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-xs;
+  height: 26px;
+  border-bottom: 1px solid $color-border;
+
+  span {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 13px;
+    color: $color-text-muted;
+  }
+}
+
+// Barra de tabs inferior
+.tab-bar {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid $color-border;
+  padding: $space-sm 0;
+
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-size: 11px;
+    color: $color-text-muted;
+
+    &.active {
+      color: $color-accent-dark;
+      font-weight: 600;
+    }
+  }
+}

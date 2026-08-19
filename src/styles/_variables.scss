@@ -1,0 +1,37 @@
+// ===================================
+// Streatra - Paleta de colores (tonos neutros + acento terracota)
+// ===================================
+
+// Acento / marca
+$color-accent: #C08072;
+$color-accent-dark: #8A3A2C;
+
+// Fondos y superficies
+$color-bg: #FAF6F1;
+$color-surface: #F0ECE7;
+$color-border: #E4DDD5;
+$color-border-strong: #C9C4BF;
+
+// Texto
+$color-text: #3A3532;
+$color-text-muted: #8A827C;
+
+// Estados
+$color-whatsapp: #25D366;
+$color-disabled: #C9C4BF;
+
+// Tipografia
+$font-heading: 'Georgia', 'Times New Roman', serif; // solo para el wordmark del logo
+$font-body: 'Inter', -apple-system, sans-serif;
+
+// Espaciado (opcional, para mantener consistencia)
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
+$space-xl: 32px;
+
+// Bordes redondeados
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 14px;
