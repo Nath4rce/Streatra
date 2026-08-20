@@ -35,45 +35,50 @@ export const productos = [
     imagen: '/assets/productos/empanada.png',
     vendedor: 'Juan David P.',
     horario: '10:00am - 2:00pm',
+    telefono: '573001234567'
   },
   {
     id: 'prod-2',
     nombre: 'Brownies Caseros',
-    descripcion: 'Porción individual con arequipe',
+    descripcion: 'Porción individual',
     categoria: 'alimentos',
     subcategoria: 'comida',
     imagen: '/assets/productos/brownie.png',
-    vendedor: 'María José R.',
-    horario: '8:00am - 12:00pm',
+    vendedor: 'Juan David P.',
+    horario: '10:00am - 2:00pm',
+    telefono: '573009876543'
   },
   {
     id: 'prod-3',
-    nombre: 'Jugos Naturales',
-    descripcion: 'Botella 500ml (Mora, Mango, Fresa)',
+    nombre: 'Jugos naturales',
+    descripcion: 'Botella 500ml',
     categoria: 'alimentos',
     subcategoria: 'bebidas',
     imagen: '/assets/productos/jugo.png',
-    vendedor: 'Carlos Andrés M.',
-    horario: '9:00am - 4:00pm',
+    vendedor: 'Juan David P.',
+    horario: '10:00am - 2:00pm',
+    telefono: '573105551234'
   },
   {
     id: 'prod-4',
-    nombre: 'Pulsera tejida artesanal',
-    descripcion: 'Diseño ajustable hecho a mano',
+    nombre: 'Pulsera artesanal',
+    descripcion: 'Ajustable, varios colores',
     categoria: 'bisuteria',
-    subcategoria: 'comida',
+    subcategoria: 'accesorios',
     imagen: '/assets/productos/pulsera.png',
     vendedor: 'Laura B.',
     horario: '11:00am - 3:00pm',
+    telefono: '573204449876'
   },
   {
     id: 'prod-5',
-    nombre: 'Cuaderno de notas A5',
-    descripcion: '80 hojas cuadriculadas ecológicas',
+    nombre: 'Cuaderno A5',
+    descripcion: 'Hojas cuadriculadas',
     categoria: 'papeleria',
-    subcategoria: 'comida',
+    subcategoria: 'utiles',
     imagen: '/assets/productos/cuaderno.png',
     vendedor: 'Santiago G.',
     horario: '1:00pm - 5:00pm',
+    telefono: '573017778899'
   }
 ];
