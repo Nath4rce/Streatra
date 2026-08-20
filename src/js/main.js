@@ -31,7 +31,7 @@ function render() {
 
     setTimeout(() => {
       navegarA('home');
-    }, );
+    }, 3000);
   }
 
   if (vistaActual === 'home') {
