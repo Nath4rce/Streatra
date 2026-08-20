@@ -2,14 +2,16 @@
 // Streatra - Sistema de Navegación SPA
 // ===================================
 
+import '../styles/main.scss';
+
 const app = document.getElementById('app');
 
 // Estado global de navegación
 let vistaActual = 'splash';
 
-// Función para cambiar de pantalla
-function navegarA(nuevaVista) {
-  vistaActual = nuevaVista;
+// Cambia la vista activa y vuelve a renderizar
+function navegarA(vista) {
+  vistaActual = vista;
   render();
 }
 
@@ -17,18 +19,11 @@ function navegarA(nuevaVista) {
 function render() {
   if (vistaActual === 'splash') {
     app.innerHTML = `
-      <main class="spa-container" style="padding: 24px; text-align: center;">
-        <h2>Pantalla: Splash</h2>
-        <p style="margin: 16px 0; color: #8A827C;">Vista temporal de carga</p>
-        <button id="btn-ir-home" style="padding: 10px 20px; cursor: pointer;">
-          Ir a Home
-        </button>
+      <main class="splash-screen">
+        <img src="/assets/logo/logo.png" alt="Streatra" class="splash-screen__logo" />
+        <h1 class="splash-screen__title">Streatra</h1>
       </main>
     `;
-
-    document.getElementById('btn-ir-home').addEventListener('click', () => {
-      navegarA('home');
-    });
     return;
   }
 
