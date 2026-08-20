@@ -264,7 +264,7 @@ if (vistaActual === 'detalle') {
     if (!producto) {
       app.innerHTML = `
         <div class="main-content-wrapper">
-          <p style="padding: 24px; text-align: center;">Producto no encontrado.</p>
+          <p style="padding: 24px; text-align: center; color: #8A827C;">Producto no encontrado.</p>
         </div>
       `;
       return;
@@ -285,7 +285,7 @@ if (vistaActual === 'detalle') {
           <div class="product-detail">
             <div class="product-detail__hero">
               <span class="product-detail__hero-icon">📦</span>
-              <button class="product-detail__favorite-btn" aria-label="Favorito">🤍</button>
+              <button class="product-detail__favorite-btn" id="btn-fav-detalle" aria-label="Favorito">🤍</button>
             </div>
 
             <h2 class="product-detail__name">${producto.nombre}</h2>
@@ -312,9 +312,26 @@ if (vistaActual === 'detalle') {
       </div>
     `;
 
+    // Botón volver a la lista de productos de la categoría actual
     document.getElementById('btn-volver-productos').addEventListener('click', () => {
       navegarA('productos', categoriaActual);
     });
+
+    // Acción para Ver más información (abre el modal en el commit #25)
+    const btnVerInfo = document.getElementById('btn-ver-info');
+    if (btnVerInfo) {
+      btnVerInfo.addEventListener('click', () => {
+        navegarA('modal-info');
+      });
+    }
+
+    // Acción para Comprar por WhatsApp (abre modal confirmación en Bloque 6)
+    const btnWpp = document.getElementById('btn-comprar-wpp');
+    if (btnWpp) {
+      btnWpp.addEventListener('click', () => {
+        navegarA('modal-whatsapp');
+      });
+    }
 
     return;
   }
