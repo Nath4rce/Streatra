@@ -22,8 +22,14 @@ function render() {
       <main class="splash-screen">
         <img src="/assets/logo/logo.png" alt="Streatra" class="splash-screen__logo" />
         <h1 class="splash-screen__title">Streatra</h1>
+        <button id="btn-ir-home" style="padding: 10px 20px; cursor: pointer;">
+          Ir a Home
+        </button>
       </main>
     `;
+    document.getElementById('btn-ir-home').addEventListener('click', () => {
+      navegarA('home');
+    });
     return;
   }
 
