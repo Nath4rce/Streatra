@@ -31,26 +31,25 @@ function render() {
 
     setTimeout(() => {
       navegarA('home');
-    }, 2500);
+    }, );
   }
 
   if (vistaActual === 'home') {
     app.innerHTML = `
-      <main class="spa-container" style="padding: 24px; text-align: center;">
-        <header class="brand-strip">
-          <span>Streatra</span>
-        </header>
-        <h2 style="margin-top: 16px;">Pantalla: Home / Categorías</h2>
-        <p style="margin: 16px 0; color: #8A827C;">Vista principal de navegación</p>
-        <button id="btn-ir-splash" style="padding: 10px 20px; cursor: pointer;">
-          Volver a Splash
-        </button>
+      <header class="home-header">
+        <h1 class="home-header__brand">Streatra</h1>
+      </header>
+
+      <main class="home-content">
+        <section class="categories-section">
+          <h2 class="categories-section__title">Categorías</h2>
+          <div class="categories-list" id="categories-list">
+            <!-- Las categorías se agregan en el commit #12 -->
+          </div>
+        </section>
       </main>
     `;
-
-    document.getElementById('btn-ir-splash').addEventListener('click', () => {
-      navegarA('splash');
-    });
+    return;
   }
 }
 
