@@ -273,20 +273,40 @@ if (vistaActual === 'detalle') {
     app.innerHTML = `
       <div class="main-content-wrapper">
         <header class="home-header">
-          <button class="products-screen__back-btn" id="btn-volver-productos" aria-label="Volver">←</button>
           <h1 class="home-header__brand">Streatra</h1>
         </header>
 
-        <main class="product-detail">
-          <div class="product-detail__image">
-            <span class="product-detail__image-icon">📦</span>
+        <main class="products-screen">
+          <div class="products-screen__nav">
+            <button class="products-screen__back-btn" id="btn-volver-productos" aria-label="Volver">←</button>
+            <h2 class="products-screen__heading">Detalles de la tienda</h2>
           </div>
-          <h2 class="product-detail__name">${producto.nombre}</h2>
-          <p class="product-detail__description">${producto.descripcion}</p>
 
-          <div class="product-detail__seller">
-            <p class="product-detail__seller-name">${producto.vendedor}</p>
-            <p class="product-detail__seller-schedule">Horario: ${producto.horario}</p>
+          <div class="product-detail">
+            <div class="product-detail__hero">
+              <span class="product-detail__hero-icon">📦</span>
+              <button class="product-detail__favorite-btn" aria-label="Favorito">🤍</button>
+            </div>
+
+            <h2 class="product-detail__name">${producto.nombre}</h2>
+            <p class="product-detail__description">${producto.descripcion}</p>
+
+            <div class="product-detail__seller-box">
+              <p class="product-detail__seller-label">Vendedor</p>
+              <p class="product-detail__seller-name">${producto.vendedor}</p>
+              <p class="product-detail__seller-schedule">Horario: ${producto.horario}</p>
+            </div>
+
+            <div class="product-detail__actions">
+              <button class="product-detail__btn product-detail__btn--info" id="btn-ver-info">
+                <span>Ver más información</span>
+                <span>🔗</span>
+              </button>
+              <button class="product-detail__btn product-detail__btn--whatsapp" id="btn-comprar-wpp">
+                <span>Comprar por WhatsApp</span>
+                <span>💬</span>
+              </button>
+            </div>
           </div>
         </main>
       </div>
@@ -298,6 +318,7 @@ if (vistaActual === 'detalle') {
 
     return;
   }
+  
   if (vistaActual === 'favoritos') {
     app.innerHTML = `
       <div class="main-content-wrapper">
