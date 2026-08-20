@@ -96,6 +96,11 @@
     font-size: 20px;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease;
+
+    &:active {
+      transform: scale(0.92);
+    }
   }
 
   &__name {
@@ -142,36 +147,51 @@
   &__actions {
     display: flex;
     flex-direction: column;
-    gap: $spacing-sm;
+    gap: $spacing-md;
+    margin-top: $spacing-lg;
   }
 
   &__btn {
     width: 100%;
     padding: 14px $spacing-md;
     border-radius: $radius-large;
-    border: none;
     font-family: $font-family;
     font-size: $font-size-sm;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: $spacing-sm;
-    transition: opacity 0.2s ease, transform 0.1s ease;
+    transition: all 0.2s ease;
 
     &:active {
       transform: scale(0.98);
     }
 
+    // Botón secundario: Ver más información
     &--info {
-      background-color: #D6D6D6;
+      background-color: $color-surface;
       color: $color-text;
+      border: 1px solid $color-border;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+      &:hover {
+        background-color: $color-background;
+        border-color: $color-text-secondary;
+      }
     }
 
+    // Botón principal: Comprar por WhatsApp
     &--whatsapp {
-      background-color: #D6D6D6;
-      color: $color-text;
+      background-color: #25D366;
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+
+      &:hover {
+        background-color: #20bd5a;
+      }
     }
   }
 }
