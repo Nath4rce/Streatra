@@ -23,19 +23,10 @@
   }
 
   &__logo {
-    width: 130px;
+    width: 150px;
     height: auto;
     object-fit: contain;
-    margin-bottom: $spacing-md;
-  }
-
-  &__title {
-    font-size: $font-size-xl;
-    font-weight: 700;
-    font-family: $font-family;
-    color: $color-primary;
-    margin: 0 0 $spacing-xl 0;
-    letter-spacing: -0.5px;
+    margin-bottom: $spacing-xl;
   }
 
   &__loader {
@@ -48,26 +39,19 @@
   }
 
   &__loader-bar {
-    width: 45%;
+    width: 0%;
     height: 100%;
     background-color: $color-primary;
     border-radius: 999px;
+    animation: cargarSplash 2.5s ease-in-out forwards;
   }
+}
 
-  &__btn {
-    margin-top: $spacing-xl;
-    background-color: transparent;
-    color: $color-text-secondary;
-    border: 1px dashed $color-border;
-    border-radius: $radius-small;
-    padding: $spacing-sm $spacing-md;
-    font-size: $font-size-sm;
-    font-family: $font-family;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-
-    &:hover {
-      opacity: 0.8;
-    }
+@keyframes cargarSplash {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
   }
 }
