@@ -110,16 +110,17 @@ function render() {
   if (vistaActual === 'productos') {
     app.innerHTML = `
       <div class="main-content-wrapper">
-        <header class="home-header">
-          <h1 class="home-header__brand">Streatra</h1>
+        <header class="products-header">
+          <button class="products-header__back" id="btn-volver-home" aria-label="Volver">←</button>
+          <h1 class="products-header__title">${categoriaActual}</h1>
         </header>
 
-        <main class="spa-container" style="padding: 24px; text-align: center;">
-          <h2>Pantalla: Lista de productos</h2>
-          <p style="margin: 16px 0; color: #8A827C;">Categoría: <strong>${categoriaActual}</strong></p>
-          <button id="btn-volver-home" style="padding: 10px 20px; cursor: pointer;">
-            Volver a Categorías
-          </button>
+        <main class="products-content">
+          <section class="products-section">
+            <div class="products-list" id="products-list">
+              <!-- Los productos se agregan en el commit #17 -->
+            </div>
+          </section>
         </main>
         ${renderBottomNav()}
       </div>
