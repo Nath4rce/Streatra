@@ -4,27 +4,27 @@
 
 const app = document.getElementById('app');
 
-// Datos "quemados" - se van a mover a un archivo aparte (data.js) a medida
-// que crezca, para no mezclar datos con logica de render.
-const categorias = [
-  { id: 'alimentos', nombre: 'Alimentos' },
-  { id: 'bisuteria', nombre: 'Bisuteria' },
-  { id: 'papeleria', nombre: 'Papeleria' },
-];
+// Estado inicial de la pantalla
+let pantallaActual = 'inicio';
 
-// Enrutamiento simple basado en un estado en memoria (sin libreria de router)
-let pantallaActual = 'categorias';
-
+// Función principal para renderizar la vista en el contenedor #app
 function render() {
   app.innerHTML = `
-    <div class="brand-strip"><span>Streatra</span></div>
-    <p style="padding: 16px; color: #8A827C; font-size: 13px;">
-      Pantalla actual: ${pantallaActual} - siguiente paso: armar cada vista
-    </p>
+    <main class="spa-container">
+      <header class="brand-strip">
+        <span>Streatra</span>
+      </header>
+      <section style="padding: 24px; text-align: center;">
+        <p style="color: #8A827C; font-size: 14px;">
+          Estructura base SPA inicializada.
+        </p>
+        <p style="color: #333; font-size: 12px; margin-top: 8px;">
+          Pantalla actual: <strong>${pantallaActual}</strong>
+        </p>
+      </section>
+    </main>
   `;
 }
 
+// Ejecución inicial
 render();
-
-// Exportamos por si otros módulos necesitan re-renderizar
-export { render, categorias };
