@@ -1,30 +1,56 @@
 // ===================================
-// Streatra - Punto de entrada de la SPA (Vanilla JS)
+// Streatra - Sistema de Navegación SPA
 // ===================================
 
 const app = document.getElementById('app');
 
-// Estado inicial de la pantalla
-let pantallaActual = 'inicio';
+// Estado global de navegación
+let vistaActual = 'splash';
 
-// Función principal para renderizar la vista en el contenedor #app
-function render() {
-  app.innerHTML = `
-    <main class="spa-container">
-      <header class="brand-strip">
-        <span>Streatra</span>
-      </header>
-      <section style="padding: 24px; text-align: center;">
-        <p style="color: #8A827C; font-size: 14px;">
-          Estructura base SPA inicializada.
-        </p>
-        <p style="color: #333; font-size: 12px; margin-top: 8px;">
-          Pantalla actual: <strong>${pantallaActual}</strong>
-        </p>
-      </section>
-    </main>
-  `;
+// Función para cambiar de pantalla
+function navegarA(nuevaVista) {
+  vistaActual = nuevaVista;
+  render();
 }
 
-// Ejecución inicial
+// Función principal de renderizado según la vista activa
+function render() {
+  if (vistaActual === 'splash') {
+    app.innerHTML = `
+      <main class="spa-container" style="padding: 24px; text-align: center;">
+        <h2>Pantalla: Splash</h2>
+        <p style="margin: 16px 0; color: #8A827C;">Vista temporal de carga</p>
+        <button id="btn-ir-home" style="padding: 10px 20px; cursor: pointer;">
+          Ir a Home
+        </button>
+      </main>
+    `;
+
+    document.getElementById('btn-ir-home').addEventListener('click', () => {
+      navegarA('home');
+    });
+    return;
+  }
+
+  if (vistaActual === 'home') {
+    app.innerHTML = `
+      <main class="spa-container" style="padding: 24px; text-align: center;">
+        <header class="brand-strip">
+          <span>Streatra</span>
+        </header>
+        <h2 style="margin-top: 16px;">Pantalla: Home / Categorías</h2>
+        <p style="margin: 16px 0; color: #8A827C;">Vista principal de navegación</p>
+        <button id="btn-ir-splash" style="padding: 10px 20px; cursor: pointer;">
+          Volver a Splash
+        </button>
+      </main>
+    `;
+
+    document.getElementById('btn-ir-splash').addEventListener('click', () => {
+      navegarA('splash');
+    });
+  }
+}
+
+// Render inicial
 render();
