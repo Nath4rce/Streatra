@@ -1,0 +1,38 @@
+@use 'variables' as *;
+
+// ===================================
+// Encabezado Superior (Brand Strip)
+// ===================================
+.home-header {
+  width: 100%;
+  background-color: $color-primary;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom-left-radius: $radius-medium;
+  border-bottom-right-radius: $radius-medium;
+  box-shadow: 0 2px 8px rgba(217, 119, 87, 0.25);
+
+  &__brand {
+    font-family: $font-family;
+    font-size: 20px;
+    font-weight: 800;
+    color: $color-surface;
+    margin: 0;
+    letter-spacing: -0.3px;
+  }
+}
+
+.categories-section {
+  padding: $spacing-md 0;
+  text-align: center;
+
+  &__title {
+    font-family: $font-family;
+    font-size: $font-size-lg;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0 0 $spacing-md 0;
+  }
+}

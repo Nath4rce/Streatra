@@ -7,16 +7,13 @@ import { categorias } from './data.js';
 
 const app = document.getElementById('app');
 
-// Estado global de navegación
 let vistaActual = 'splash';
 
-// Cambia la vista activa y vuelve a renderizar
 export function navegarA(vista) {
   vistaActual = vista;
   render();
 }
 
-// Función principal de renderizado según la vista activa
 function render() {
   if (vistaActual === 'splash') {
     app.innerHTML = `
@@ -33,9 +30,21 @@ function render() {
     setTimeout(() => {
       navegarA('home');
     }, 3000);
+    return;
   }
 
   if (vistaActual === 'home') {
+    const listaCategoriasHTML = categorias
+      .map(
+        (cat) => `
+        <button class="category-card" data-category="${cat.id}">
+          <span class="category-card__icon">${cat.icono}</span>
+          <span class="category-card__name">${cat.nombre}</span>
+        </button>
+      `
+      )
+      .join('');
+
     app.innerHTML = `
       <header class="home-header">
         <h1 class="home-header__brand">Streatra</h1>
@@ -44,8 +53,10 @@ function render() {
       <main class="home-content">
         <section class="categories-section">
           <h2 class="categories-section__title">Categorías</h2>
-          <div class="categories-list" id="categories-list">
-            <!-- Las categorías se agregan en el commit #12 -->
+          <div class="categories-container">
+            <div class="categories-list" id="categories-list">
+              ${listaCategoriasHTML}
+            </div>
           </div>
         </section>
       </main>

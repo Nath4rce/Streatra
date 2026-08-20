@@ -1,0 +1,61 @@
+@use 'variables' as *;
+
+// ===================================
+// Contenedor y Tarjetas de Categorías
+// ===================================
+.categories-container {
+  background-color: $color-surface;
+  border-radius: $radius-large;
+  padding: $spacing-lg $spacing-md;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin: $spacing-md auto;
+  max-width: 360px;
+  width: 90%;
+  box-sizing: border-box;
+}
+
+.categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  width: 100%;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 76px;
+  background-color: $color-background;
+  border: 1px solid $color-border;
+  border-radius: $radius-medium;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+
+  &__icon {
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: $spacing-xs;
+    color: $color-primary;
+  }
+
+  &__name {
+    font-family: $font-family;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    color: $color-text;
+  }
+
+  &:hover {
+    background-color: #fbeee8; // Tono suave de la paleta terracota
+    border-color: $color-primary;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
