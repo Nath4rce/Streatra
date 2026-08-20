@@ -191,3 +191,31 @@
     margin: 0;
   }
 }
+
+// ===================================
+// 3. Filtros de productos (chips)
+// ===================================
+.product-filters {
+  display: flex;
+  gap: $spacing-sm;
+  padding: 0 $spacing-md;
+  margin-bottom: $spacing-md;
+  overflow-x: auto;
+}
+
+.filter-chip {
+  flex-shrink: 0;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $radius-large;
+  border: 1px solid $color-border;
+  background-color: $color-surface;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  cursor: pointer;
+
+  &--active {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-surface;
+  }
+}

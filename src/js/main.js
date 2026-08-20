@@ -9,10 +9,14 @@ const app = document.getElementById('app');
 
 let vistaActual = 'splash';
 let categoriaActual = 'todos';
+let filtroSubcategoria = 'todos';
 
 export function navegarA(vista, categoriaId = null) {
   vistaActual = vista;
-  if (categoriaId) categoriaActual = categoriaId;
+  if (categoriaId) {
+    if (categoriaId !== categoriaActual) filtroSubcategoria = 'todos';
+    categoriaActual = categoriaId;
+  }
   render();
 }
 
@@ -108,9 +112,39 @@ function render() {
   }
 
   if (vistaActual === 'productos') {
-    const productosFiltrados = categoriaActual === 'todos' 
-      ? productos 
+    const productosDeCategoria = categoriaActual === 'todos'
+      ? productos
       : productos.filter((p) => p.categoria === categoriaActual);
+
+    const subcategoriasDisponibles = [
+      ...new Set(productosDeCategoria.map((p) => p.subcategoria)),
+    ];
+
+    const productosFiltrados = filtroSubcategoria === 'todos'
+      ? productosDeCategoria
+      : productosDeCategoria.filter((p) => p.subcategoria === filtroSubcategoria);
+
+    const etiquetasSubcategoria = {
+      comida: 'Comida',
+      bebidas: 'Bebidas',
+      accesorios: 'Accesorios',
+      utiles: 'Útiles',
+    };
+
+    const filtrosHTML = `
+      <button class="filter-chip ${filtroSubcategoria === 'todos' ? 'filter-chip--active' : ''}" data-filtro="todos">
+        Todos
+      </button>
+      ${subcategoriasDisponibles
+        .map(
+          (sub) => `
+        <button class="filter-chip ${filtroSubcategoria === sub ? 'filter-chip--active' : ''}" data-filtro="${sub}">
+          ${etiquetasSubcategoria[sub] || sub}
+        </button>
+      `
+        )
+        .join('')}
+    `;
 
     const listaProductosHTML = productosFiltrados.length > 0
       ? productosFiltrados
@@ -145,6 +179,10 @@ function render() {
             <h2 class="products-screen__heading">${nombreCategoriaMostrar}</h2>
           </div>
 
+          <div class="product-filters" id="product-filters">
+            ${filtrosHTML}
+          </div>
+
           <section class="products-container">
             <div class="products-list" id="products-list">
               ${listaProductosHTML}
@@ -157,6 +195,13 @@ function render() {
 
     document.getElementById('btn-volver-home').addEventListener('click', () => {
       navegarA('home');
+    });
+
+    document.querySelectorAll('.filter-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        filtroSubcategoria = chip.dataset.filtro;
+        render();
+      });
     });
 
     setupBottomNavEvents();
