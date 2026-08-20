@@ -3,12 +3,12 @@
 // ===================================
 
 import '../styles/main.scss';
-import { categorias } from './data.js';
+import { categorias, productos } from './data.js';
 
 const app = document.getElementById('app');
 
 let vistaActual = 'splash';
-let categoriaActual = null;
+let categoriaActual = 'todos';
 
 export function navegarA(vista, categoriaId = null) {
   vistaActual = vista;
@@ -108,17 +108,46 @@ function render() {
   }
 
   if (vistaActual === 'productos') {
+    const productosFiltrados = categoriaActual === 'todos' 
+      ? productos 
+      : productos.filter((p) => p.categoria === categoriaActual);
+
+    const listaProductosHTML = productosFiltrados.length > 0
+      ? productosFiltrados
+          .map(
+            (prod) => `
+            <article class="product-card" data-id="${prod.id}">
+              <div class="product-card__thumb">
+                <span class="product-card__thumb-icon">📦</span>
+              </div>
+              <div class="product-card__content">
+                <h3 class="product-card__name">${prod.nombre}</h3>
+                <p class="product-card__description">${prod.descripcion}</p>
+              </div>
+              <button class="product-card__favorite-btn" aria-label="Favorito">🤍</button>
+            </article>
+          `
+          )
+          .join('')
+      : `<p style="text-align: center; color: #8A827C; margin-top: 32px;">No hay productos en esta categoría.</p>`;
+
+    const nombreCategoriaMostrar = categorias.find((c) => c.id === categoriaActual)?.nombre || 'Tiendas';
+
     app.innerHTML = `
       <div class="main-content-wrapper">
-        <header class="products-header">
-          <button class="products-header__back" id="btn-volver-home" aria-label="Volver">←</button>
-          <h1 class="products-header__title">${categoriaActual}</h1>
+        <header class="home-header">
+          <h1 class="home-header__brand">Streatra</h1>
         </header>
 
-        <main class="products-content">
-          <section class="products-section">
+        <main class="products-screen">
+          <div class="products-screen__nav">
+            <button class="products-screen__back-btn" id="btn-volver-home" aria-label="Volver">←</button>
+            <h2 class="products-screen__heading">${nombreCategoriaMostrar}</h2>
+          </div>
+
+          <section class="products-container">
             <div class="products-list" id="products-list">
-              <!-- Los productos se agregan en el commit #17 -->
+              ${listaProductosHTML}
             </div>
           </section>
         </main>

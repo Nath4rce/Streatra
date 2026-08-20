@@ -1,7 +1,7 @@
 @use 'variables' as *;
 
 // ===================================
-// Contenedor y Tarjetas de Categorías
+// 1. HOME: Contenedor y Tarjetas de Categorías
 // ===================================
 .categories-container {
   background-color: $color-surface;
@@ -50,12 +50,144 @@
   }
 
   &:hover {
-    background-color: #fbeee8; // Tono suave de la paleta terracota
+    background-color: #fbeee8;
     border-color: $color-primary;
     transform: translateY(-2px);
   }
 
   &:active {
     transform: scale(0.98);
+  }
+}
+
+// ===================================
+// 2. PRODUCTOS: Contenedor y Tarjetas de Productos
+// ===================================
+.products-container {
+  padding: $spacing-md;
+  box-sizing: border-box;
+  max-width: 380px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.products-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  width: 100%;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-large;
+  padding: $spacing-sm $spacing-md;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.2s ease;
+
+  &:hover {
+    border-color: $color-primary;
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+
+  // Miniatura cuadrada de la izquierda
+  &__thumb {
+    width: 64px;
+    height: 64px;
+    background-color: #ECECEC;
+    border-radius: $radius-medium;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-right: $spacing-md;
+  }
+
+  &__thumb-icon {
+    font-size: 24px;
+  }
+
+  // Textos: Nombre y Descripción
+  &__content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 28px;
+  }
+
+  &__name {
+    font-family: $font-family;
+    font-size: $font-size-base;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0 0 $spacing-xs 0;
+  }
+
+  &__description {
+    font-family: $font-family;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  // Botón de favorito
+  &__favorite-btn {
+    position: absolute;
+    right: $spacing-md;
+    bottom: $spacing-sm;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: $spacing-xs;
+    line-height: 1;
+  }
+}
+
+// Encabezado con flecha de retorno en productos
+.products-screen {
+  &__nav {
+    display: flex;
+    align-items: center;
+    padding: $spacing-sm $spacing-md;
+    background-color: $color-surface;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__back-btn {
+    background: none;
+    border: 1px solid $color-border;
+    border-radius: $radius-small;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: $spacing-md;
+    color: $color-text;
+
+    &:hover {
+      background-color: $color-background;
+    }
+  }
+
+  &__heading {
+    font-family: $font-family;
+    font-size: $font-size-md;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
   }
 }
