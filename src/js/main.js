@@ -3,6 +3,7 @@
 // ===================================
 
 import '../styles/main.scss';
+import { categorias } from './data.js';
 
 const app = document.getElementById('app');
 
