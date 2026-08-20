@@ -10,11 +10,15 @@ const app = document.getElementById('app');
 let vistaActual = 'splash';
 let categoriaActual = 'todos';
 let filtroSubcategoria = 'todos';
+let terminoBusqueda = '';
 
 export function navegarA(vista, categoriaId = null) {
   vistaActual = vista;
   if (categoriaId) {
-    if (categoriaId !== categoriaActual) filtroSubcategoria = 'todos';
+    if (categoriaId !== categoriaActual) {
+      filtroSubcategoria = 'todos';
+      terminoBusqueda = '';
+    }
     categoriaActual = categoriaId;
   }
   render();
@@ -120,9 +124,16 @@ function render() {
       ...new Set(productosDeCategoria.map((p) => p.subcategoria)),
     ];
 
-    const productosFiltrados = filtroSubcategoria === 'todos'
+    const productosPorSubcategoria = filtroSubcategoria === 'todos'
       ? productosDeCategoria
       : productosDeCategoria.filter((p) => p.subcategoria === filtroSubcategoria);
+
+    const terminoNormalizado = terminoBusqueda.trim().toLowerCase();
+    const productosFiltrados = terminoNormalizado === ''
+      ? productosPorSubcategoria
+      : productosPorSubcategoria.filter((p) =>
+          p.nombre.toLowerCase().includes(terminoNormalizado)
+        );
 
     const etiquetasSubcategoria = {
       comida: 'Comida',
@@ -163,7 +174,7 @@ function render() {
           `
           )
           .join('')
-      : `<p style="text-align: center; color: #8A827C; margin-top: 32px;">No hay productos en esta categoría.</p>`;
+      : `<p style="text-align: center; color: #8A827C; margin-top: 32px;">No hay productos que coincidan con tu búsqueda.</p>`;
 
     const nombreCategoriaMostrar = categorias.find((c) => c.id === categoriaActual)?.nombre || 'Tiendas';
 
@@ -177,6 +188,16 @@ function render() {
           <div class="products-screen__nav">
             <button class="products-screen__back-btn" id="btn-volver-home" aria-label="Volver">←</button>
             <h2 class="products-screen__heading">${nombreCategoriaMostrar}</h2>
+          </div>
+
+          <div class="products-screen__search">
+            <input
+              type="text"
+              id="product-search-input"
+              class="search-input"
+              placeholder="Buscar producto"
+              value="${terminoBusqueda}"
+            />
           </div>
 
           <div class="product-filters" id="product-filters">
@@ -202,6 +223,15 @@ function render() {
         filtroSubcategoria = chip.dataset.filtro;
         render();
       });
+    });
+
+    const inputBusqueda = document.getElementById('product-search-input');
+    inputBusqueda.addEventListener('input', (e) => {
+      terminoBusqueda = e.target.value;
+      render();
+      const inputActualizado = document.getElementById('product-search-input');
+      inputActualizado.focus();
+      inputActualizado.setSelectionRange(inputActualizado.value.length, inputActualizado.value.length);
     });
 
     setupBottomNavEvents();
