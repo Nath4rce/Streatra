@@ -10,7 +10,7 @@ const app = document.getElementById('app');
 let vistaActual = 'splash';
 
 // Cambia la vista activa y vuelve a renderizar
-function navegarA(vista) {
+export function navegarA(vista) {
   vistaActual = vista;
   render();
 }
@@ -20,13 +20,19 @@ function render() {
   if (vistaActual === 'splash') {
     app.innerHTML = `
       <main class="splash-screen">
-        <img src="/assets/logo/logo.png" alt="Streatra" class="splash-screen__logo" />
-        <h1 class="splash-screen__title">Streatra</h1>
-        <button id="btn-ir-home" style="padding: 10px 20px; cursor: pointer;">
+        <div class="splash-screen__content">
+          <img src="/assets/logo/logo.png" alt="Streatra Logo" class="splash-screen__logo" />
+          <h1 class="splash-screen__title">Streatra</h1>
+          <div class="splash-screen__loader">
+            <div class="splash-screen__loader-bar"></div>
+          </div>
+        </div>
+        <button id="btn-ir-home" class="splash-screen__btn" style="padding: 10px 20px; cursor: pointer; margin-top: 20px;">
           Ir a Home
         </button>
       </main>
     `;
+
     document.getElementById('btn-ir-home').addEventListener('click', () => {
       navegarA('home');
     });
