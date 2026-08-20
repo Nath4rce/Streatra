@@ -11,6 +11,7 @@ let vistaActual = 'splash';
 let categoriaActual = 'todos';
 let filtroSubcategoria = 'todos';
 let terminoBusqueda = '';
+let productoIdActual = null;
 
 export function navegarA(vista, categoriaId = null) {
   vistaActual = vista;
@@ -21,6 +22,12 @@ export function navegarA(vista, categoriaId = null) {
     }
     categoriaActual = categoriaId;
   }
+  render();
+}
+
+function verDetalleProducto(productId) {
+  productoIdActual = productId;
+  vistaActual = 'detalle';
   render();
 }
 
@@ -225,6 +232,19 @@ function render() {
       });
     });
 
+    document.querySelectorAll('.product-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        verDetalleProducto(card.dataset.id);
+      });
+    });
+
+    document.querySelectorAll('.product-card__favorite-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // La lógica real de favoritos se implementa en el commit #32
+      });
+    });
+
     const inputBusqueda = document.getElementById('product-search-input');
     inputBusqueda.addEventListener('input', (e) => {
       terminoBusqueda = e.target.value;
@@ -238,6 +258,46 @@ function render() {
     return;
   }
 
+if (vistaActual === 'detalle') {
+    const producto = productos.find((p) => p.id === productoIdActual);
+
+    if (!producto) {
+      app.innerHTML = `
+        <div class="main-content-wrapper">
+          <p style="padding: 24px; text-align: center;">Producto no encontrado.</p>
+        </div>
+      `;
+      return;
+    }
+
+    app.innerHTML = `
+      <div class="main-content-wrapper">
+        <header class="home-header">
+          <button class="products-screen__back-btn" id="btn-volver-productos" aria-label="Volver">←</button>
+          <h1 class="home-header__brand">Streatra</h1>
+        </header>
+
+        <main class="product-detail">
+          <div class="product-detail__image">
+            <span class="product-detail__image-icon">📦</span>
+          </div>
+          <h2 class="product-detail__name">${producto.nombre}</h2>
+          <p class="product-detail__description">${producto.descripcion}</p>
+
+          <div class="product-detail__seller">
+            <p class="product-detail__seller-name">${producto.vendedor}</p>
+            <p class="product-detail__seller-schedule">Horario: ${producto.horario}</p>
+          </div>
+        </main>
+      </div>
+    `;
+
+    document.getElementById('btn-volver-productos').addEventListener('click', () => {
+      navegarA('productos', categoriaActual);
+    });
+
+    return;
+  }
   if (vistaActual === 'favoritos') {
     app.innerHTML = `
       <div class="main-content-wrapper">
