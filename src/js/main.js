@@ -5,6 +5,7 @@
 import '../styles/main.scss';
 import { categorias, productos } from './data.js';
 
+
 const app = document.getElementById('app');
 
 let vistaActual = 'splash';
@@ -12,9 +13,11 @@ let categoriaActual = 'todos';
 let filtroSubcategoria = 'todos';
 let terminoBusqueda = '';
 let productoIdActual = null;
+let modalInfoAbierto = false; // Controla la visibilidad del modal como capa flotante
 
 export function navegarA(vista, categoriaId = null) {
   vistaActual = vista;
+  modalInfoAbierto = false;
   if (categoriaId) {
     if (categoriaId !== categoriaActual) {
       filtroSubcategoria = 'todos';
@@ -28,6 +31,7 @@ export function navegarA(vista, categoriaId = null) {
 function verDetalleProducto(productId) {
   productoIdActual = productId;
   vistaActual = 'detalle';
+  modalInfoAbierto = false;
   render();
 }
 
@@ -51,7 +55,6 @@ function renderBottomNav() {
   `;
 }
 
-// Configuración de eventos para la barra inferior
 function setupBottomNavEvents() {
   document.querySelectorAll('.bottom-nav__item').forEach((item) => {
     item.addEventListener('click', () => {
@@ -66,7 +69,7 @@ function render() {
     app.innerHTML = `
       <main class="splash-screen">
         <div class="splash-screen__content">
-          <img src="/assets/logo/logo.png" alt="Streatra Logo" class="splash-screen__logo" />
+          <img src="/assets/logo.png" alt="Streatra Logo" class="splash-screen__logo" />
           <div class="splash-screen__loader">
             <div class="splash-screen__loader-bar"></div>
           </div>
@@ -238,13 +241,6 @@ function render() {
       });
     });
 
-    document.querySelectorAll('.product-card__favorite-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // La lógica real de favoritos se implementa en el commit #32
-      });
-    });
-
     const inputBusqueda = document.getElementById('product-search-input');
     inputBusqueda.addEventListener('input', (e) => {
       terminoBusqueda = e.target.value;
@@ -258,7 +254,7 @@ function render() {
     return;
   }
 
-if (vistaActual === 'detalle') {
+  if (vistaActual === 'detalle') {
     const producto = productos.find((p) => p.id === productoIdActual);
 
     if (!producto) {
@@ -269,6 +265,23 @@ if (vistaActual === 'detalle') {
       `;
       return;
     }
+
+    // El modal se inyecta como capa sobrepuesta solo cuando modalInfoAbierto es true
+    const modalHTML = modalInfoAbierto ? `
+      <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-card">
+          <span class="modal-card__icon">🔗</span>
+          <h3 class="modal-card__title">¿Ver más información?</h3>
+          <p class="modal-card__text">
+            Serás redirigido al catálogo o archivo de <strong>${producto.vendedor}</strong>.
+          </p>
+          <div class="modal-card__actions">
+            <button class="modal-card__btn modal-card__btn--cancel" id="btn-modal-cancelar">Cancelar</button>
+            <button class="modal-card__btn modal-card__btn--confirm" id="btn-modal-continuar">Continuar</button>
+          </div>
+        </div>
+      </div>
+    ` : '';
 
     app.innerHTML = `
       <div class="main-content-wrapper">
@@ -309,33 +322,37 @@ if (vistaActual === 'detalle') {
             </div>
           </div>
         </main>
+        ${modalHTML}
       </div>
     `;
 
-    // Botón volver a la lista de productos de la categoría actual
     document.getElementById('btn-volver-productos').addEventListener('click', () => {
       navegarA('productos', categoriaActual);
     });
 
-    // Acción para Ver más información (abre el modal en el commit #25)
-    const btnVerInfo = document.getElementById('btn-ver-info');
-    if (btnVerInfo) {
-      btnVerInfo.addEventListener('click', () => {
-        navegarA('modal-info');
-      });
-    }
+    // Abre el modal sobre la misma pantalla
+    document.getElementById('btn-ver-info').addEventListener('click', () => {
+      modalInfoAbierto = true;
+      render();
+    });
 
-    // Acción para Comprar por WhatsApp (abre modal confirmación en Bloque 6)
-    const btnWpp = document.getElementById('btn-comprar-wpp');
-    if (btnWpp) {
-      btnWpp.addEventListener('click', () => {
-        navegarA('modal-whatsapp');
+    // Cierra el modal sin desmontar la pantalla de detalle
+    if (modalInfoAbierto) {
+      document.getElementById('btn-modal-cancelar').addEventListener('click', () => {
+        modalInfoAbierto = false;
+        render();
+      });
+
+      document.getElementById('btn-modal-continuar').addEventListener('click', () => {
+        window.open('https://drive.google.com', '_blank');
+        modalInfoAbierto = false;
+        render();
       });
     }
 
     return;
   }
-  
+
   if (vistaActual === 'favoritos') {
     app.innerHTML = `
       <div class="main-content-wrapper">

@@ -1,11 +1,7 @@
-// ===================================
-// Streatra - Hoja de estilos principal
-// Importa las parciales SASS (clases parciales)
-// ===================================
-
 @use 'variables';
 @use 'base';
 @use 'header';
 @use 'navigation';
 @use 'cards';
 @use 'screens';
+@use 'modals';
