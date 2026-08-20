@@ -8,9 +8,11 @@ import { categorias } from './data.js';
 const app = document.getElementById('app');
 
 let vistaActual = 'splash';
+let categoriaActual = null;
 
-export function navegarA(vista) {
+function navegarA(vista, categoriaId = null) {
   vistaActual = vista;
+  if (categoriaId) categoriaActual = categoriaId;
   render();
 }
 
@@ -61,6 +63,30 @@ function render() {
         </section>
       </main>
     `;
+
+    document.querySelectorAll('.category-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        navegarA('productos', card.dataset.category);
+      });
+    });
+
+    return;
+  }
+
+  if (vistaActual === 'productos') {
+    app.innerHTML = `
+      <main class="spa-container" style="padding: 24px; text-align: center;">
+        <h2>Pantalla: Lista de productos</h2>
+        <p style="margin: 16px 0; color: #8A827C;">Categoría: ${categoriaActual}</p>
+        <button id="btn-volver-home" style="padding: 10px 20px; cursor: pointer;">
+          Volver a Home
+        </button>
+      </main>
+    `;
+
+    document.getElementById('btn-volver-home').addEventListener('click', () => {
+      navegarA('home');
+    });
     return;
   }
 }
