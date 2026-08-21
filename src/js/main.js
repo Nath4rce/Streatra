@@ -286,10 +286,10 @@ function render() {
       </div>
     ` : '';
 
-    // Modal "¿Ir a WhatsApp?" — capa flotante condicional
+    // Modal "¿Ir a WhatsApp?" — capa flotante condicional, con modificador de estilo propio
     const modalWhatsappHTML = modalWhatsappAbierto ? `
       <div class="modal-overlay" id="modal-overlay-whatsapp">
-        <div class="modal-card">
+        <div class="modal-card modal-card--whatsapp">
           <span class="modal-card__icon">💬</span>
           <h3 class="modal-card__title">¿Ir a WhatsApp?</h3>
           <p class="modal-card__text">

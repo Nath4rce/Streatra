@@ -110,3 +110,28 @@
   from { transform: scale(0.95); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+// ===================================
+// Modificador: Modal de WhatsApp
+// ===================================
+$color-whatsapp: #25d366;
+
+.modal-card--whatsapp {
+  .modal-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: rgba($color-whatsapp, 0.12);
+    font-size: 26px;
+    margin-bottom: $spacing-md;
+  }
+
+  .modal-card__btn--confirm {
+    background-color: $color-whatsapp;
+    border-color: $color-whatsapp;
+    box-shadow: 0 4px 10px rgba($color-whatsapp, 0.3);
+  }
+}
