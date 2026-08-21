@@ -13,11 +13,13 @@ let categoriaActual = 'todos';
 let filtroSubcategoria = 'todos';
 let terminoBusqueda = '';
 let productoIdActual = null;
-let modalInfoAbierto = false; // Controla la visibilidad del modal como capa flotante
+let modalInfoAbierto = false; // Controla la visibilidad del modal "Ver más información"
+let modalWhatsappAbierto = false; // Controla la visibilidad del modal "¿Ir a WhatsApp?"
 
 export function navegarA(vista, categoriaId = null) {
   vistaActual = vista;
   modalInfoAbierto = false;
+  modalWhatsappAbierto = false;
   if (categoriaId) {
     if (categoriaId !== categoriaActual) {
       filtroSubcategoria = 'todos';
@@ -32,6 +34,7 @@ function verDetalleProducto(productId) {
   productoIdActual = productId;
   vistaActual = 'detalle';
   modalInfoAbierto = false;
+  modalWhatsappAbierto = false;
   render();
 }
 
@@ -266,7 +269,7 @@ function render() {
       return;
     }
 
-    // El modal se inyecta como capa sobrepuesta solo cuando modalInfoAbierto es true
+    // Modal "Ver más información" — capa flotante condicional
     const modalHTML = modalInfoAbierto ? `
       <div class="modal-overlay" id="modal-overlay">
         <div class="modal-card">
@@ -278,6 +281,23 @@ function render() {
           <div class="modal-card__actions">
             <button class="modal-card__btn modal-card__btn--cancel" id="btn-modal-cancelar">Cancelar</button>
             <button class="modal-card__btn modal-card__btn--confirm" id="btn-modal-continuar">Continuar</button>
+          </div>
+        </div>
+      </div>
+    ` : '';
+
+    // Modal "¿Ir a WhatsApp?" — capa flotante condicional
+    const modalWhatsappHTML = modalWhatsappAbierto ? `
+      <div class="modal-overlay" id="modal-overlay-whatsapp">
+        <div class="modal-card">
+          <span class="modal-card__icon">💬</span>
+          <h3 class="modal-card__title">¿Ir a WhatsApp?</h3>
+          <p class="modal-card__text">
+            Vas a contactar a <strong>${producto.vendedor}</strong> por WhatsApp para preguntar por "${producto.nombre}".
+          </p>
+          <div class="modal-card__actions">
+            <button class="modal-card__btn modal-card__btn--cancel" id="btn-wpp-cancelar">Cancelar</button>
+            <button class="modal-card__btn modal-card__btn--confirm" id="btn-wpp-continuar">Continuar</button>
           </div>
         </div>
       </div>
@@ -323,6 +343,7 @@ function render() {
           </div>
         </main>
         ${modalHTML}
+        ${modalWhatsappHTML}
       </div>
     `;
 
@@ -330,19 +351,19 @@ function render() {
       navegarA('productos', categoriaActual);
     });
 
-    // Abre el modal sobre la misma pantalla
+    // Abre el modal de "Ver más información"
     document.getElementById('btn-ver-info').addEventListener('click', () => {
       modalInfoAbierto = true;
       render();
     });
 
-    // Botón "Comprar por WhatsApp" — por ahora solo registra la acción.
-    // El modal de confirmación real se agrega en el commit #27.
+    // Abre el modal de confirmación de WhatsApp
     document.getElementById('btn-comprar-wpp').addEventListener('click', () => {
-      console.log('Comprar por WhatsApp:', producto.nombre, '- Vendedor:', producto.vendedor, '- Tel:', producto.telefono);
+      modalWhatsappAbierto = true;
+      render();
     });
 
-    // Cierra el modal sin desmontar la pantalla de detalle
+    // Cierra el modal de "Ver más información" sin desmontar la pantalla
     if (modalInfoAbierto) {
       document.getElementById('btn-modal-cancelar').addEventListener('click', () => {
         modalInfoAbierto = false;
@@ -352,6 +373,21 @@ function render() {
       document.getElementById('btn-modal-continuar').addEventListener('click', () => {
         window.open('https://drive.google.com', '_blank');
         modalInfoAbierto = false;
+        render();
+      });
+    }
+
+    // Cierra o confirma el modal de WhatsApp
+    if (modalWhatsappAbierto) {
+      document.getElementById('btn-wpp-cancelar').addEventListener('click', () => {
+        modalWhatsappAbierto = false;
+        render();
+      });
+
+      document.getElementById('btn-wpp-continuar').addEventListener('click', () => {
+        // El enlace real a WhatsApp (wa.me) se implementa en el commit #30
+        console.log('Confirmado: ir a WhatsApp con', producto.vendedor, '-', producto.telefono);
+        modalWhatsappAbierto = false;
         render();
       });
     }
