@@ -385,9 +385,8 @@ function render() {
       });
 
       document.getElementById('btn-wpp-continuar').addEventListener('click', () => {
-        // El enlace real a WhatsApp (wa.me) se implementa en el commit #30
-        console.log('Confirmado: ir a WhatsApp con', producto.vendedor, '-', producto.telefono);
         modalWhatsappAbierto = false;
+        vistaActual = 'whatsapp';
         render();
       });
     }
@@ -426,6 +425,41 @@ function render() {
       </div>
     `;
     setupBottomNavEvents();
+    return;
+  }
+
+    if (vistaActual === 'whatsapp') {
+    const producto = productos.find((p) => p.id === productoIdActual);
+
+    if (!producto) {
+      app.innerHTML = `
+        <div class="main-content-wrapper">
+          <p style="padding: 24px; text-align: center; color: #8A827C;">Producto no encontrado.</p>
+        </div>
+      `;
+      return;
+    }
+
+    app.innerHTML = `
+      <div class="main-content-wrapper">
+        <main class="whatsapp-screen">
+          <button class="whatsapp-screen__back-btn" id="btn-volver-detalle" aria-label="Volver">←</button>
+
+          <div class="whatsapp-screen__content">
+            <span class="whatsapp-screen__icon">💬</span>
+            <h2 class="whatsapp-screen__title">Conectando con WhatsApp</h2>
+            <p class="whatsapp-screen__text">
+              Estás a punto de contactar a <strong>${producto.vendedor}</strong> por "${producto.nombre}".
+            </p>
+          </div>
+        </main>
+      </div>
+    `;
+
+    document.getElementById('btn-volver-detalle').addEventListener('click', () => {
+      verDetalleProducto(producto.id);
+    });
+
     return;
   }
 }
