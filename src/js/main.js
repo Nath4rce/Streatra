@@ -336,6 +336,12 @@ function render() {
       render();
     });
 
+    // Botón "Comprar por WhatsApp" — por ahora solo registra la acción.
+    // El modal de confirmación real se agrega en el commit #27.
+    document.getElementById('btn-comprar-wpp').addEventListener('click', () => {
+      console.log('Comprar por WhatsApp:', producto.nombre, '- Vendedor:', producto.vendedor, '- Tel:', producto.telefono);
+    });
+
     // Cierra el modal sin desmontar la pantalla de detalle
     if (modalInfoAbierto) {
       document.getElementById('btn-modal-cancelar').addEventListener('click', () => {
