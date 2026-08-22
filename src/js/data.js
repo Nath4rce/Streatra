@@ -33,9 +33,9 @@ export const productos = [
     categoria: 'alimentos',
     subcategoria: 'comida',
     imagen: '/assets/productos/empanada.png',
-    vendedor: 'Juan David P.',
+    vendedor: 'Juan Felipe C.',
     horario: '10:00am - 2:00pm',
-    telefono: '573001234567'
+    telefono: '573155808468'
   },
   {
     id: 'prod-2',

@@ -428,7 +428,7 @@ function render() {
     return;
   }
 
-    if (vistaActual === 'whatsapp') {
+      if (vistaActual === 'whatsapp') {
     const producto = productos.find((p) => p.id === productoIdActual);
 
     if (!producto) {
@@ -439,6 +439,11 @@ function render() {
       `;
       return;
     }
+
+    const mensaje = encodeURIComponent(
+      `Hola ${producto.vendedor}, vi tu producto de: "${producto.nombre}" en la app Streatra y quiero conocer más información al respecto de este producto.`
+    );
+    const linkWhatsapp = `https://wa.me/${producto.telefono}?text=${mensaje}`;
 
     app.innerHTML = `
       <div class="main-content-wrapper">
@@ -451,6 +456,9 @@ function render() {
             <p class="whatsapp-screen__text">
               Estás a punto de contactar a <strong>${producto.vendedor}</strong> por "${producto.nombre}".
             </p>
+            <a href="${linkWhatsapp}" target="_blank" rel="noopener noreferrer" class="whatsapp-screen__open-btn" id="btn-abrir-whatsapp">
+              Abrir WhatsApp
+            </a>
           </div>
         </main>
       </div>
