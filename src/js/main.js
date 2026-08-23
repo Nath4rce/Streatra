@@ -507,9 +507,27 @@ function render() {
         <header class="home-header">
           <h1 class="home-header__brand">Streatra</h1>
         </header>
-        <main class="spa-container" style="padding: 24px; text-align: center;">
-          <h2>Ajustes</h2>
-          <p style="color: #8A827C; margin-top: 8px;">Configuración de idioma y tema.</p>
+
+        <main class="settings-screen">
+          <div class="products-screen__nav">
+            <h2 class="products-screen__heading">Ajustes</h2>
+          </div>
+
+          <section class="settings-screen__group">
+            <h3 class="settings-screen__group-title">Apariencia</h3>
+            <div class="settings-screen__item">
+              <span class="settings-screen__item-label">Modo oscuro</span>
+              <span class="settings-screen__item-value">Próximamente</span>
+            </div>
+          </section>
+
+          <section class="settings-screen__group">
+            <h3 class="settings-screen__group-title">Idioma</h3>
+            <div class="settings-screen__item">
+              <span class="settings-screen__item-label">Idioma de la aplicación</span>
+              <span class="settings-screen__item-value">Español</span>
+            </div>
+          </section>
         </main>
         ${renderBottomNav()}
       </div>
