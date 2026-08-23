@@ -7,6 +7,7 @@ import { categorias, productos } from './data.js';
 
 
 const app = document.getElementById('app');
+const FAVORITOS_KEY = 'streatra_favoritos';
 
 let vistaActual = 'splash';
 let categoriaActual = 'todos';
@@ -15,7 +16,26 @@ let terminoBusqueda = '';
 let productoIdActual = null;
 let modalInfoAbierto = false; // Controla la visibilidad del modal "Ver más información"
 let modalWhatsappAbierto = false; // Controla la visibilidad del modal "¿Ir a WhatsApp?"
-let favoritos = []; //array para poner favoritos
+
+function cargarFavoritos() {
+  try {
+    const guardado = localStorage.getItem(FAVORITOS_KEY);
+    return guardado ? JSON.parse(guardado) : [];
+  } catch (error) {
+    console.error('Error al cargar favoritos desde localStorage:', error);
+    return [];
+  }
+}
+
+function guardarFavoritos() {
+  try {
+    localStorage.setItem(FAVORITOS_KEY, JSON.stringify(favoritos));
+  } catch (error) {
+    console.error('Error al guardar favoritos en localStorage:', error);
+  }
+}
+
+let favoritos = cargarFavoritos();
 
 export function navegarA(vista, categoriaId = null) {
   vistaActual = vista;
@@ -40,11 +60,13 @@ function verDetalleProducto(productId) {
 }
 
 function toggleFavorito(id) {
-  if (favoritos.includes(id)) {
-    favoritos = favoritos.filter((favId) => favId !== id);
+  const idStr = String(id);
+  if (favoritos.includes(idStr)) {
+    favoritos = favoritos.filter((favId) => favId !== idStr);
   } else {
-    favoritos.push(id);
+    favoritos.push(idStr);
   }
+  guardarFavoritos();
   render();
 }
 
@@ -193,7 +215,7 @@ function render() {
                 <p class="product-card__description">${prod.descripcion}</p>
               </div>
               <button class="product-card__favorite-btn" data-id="${prod.id}" aria-label="Favorito">
-                ${favoritos.includes(prod.id) ? '❤️' : '🤍'}
+                ${favoritos.includes(String(prod.id)) ? '❤️' : '🤍'}
               </button>
             </article>
           `
@@ -338,7 +360,7 @@ function render() {
             <div class="product-detail__hero">
               <span class="product-detail__hero-icon">📦</span>
               <button class="product-detail__favorite-btn" id="btn-fav-detalle" aria-label="Favorito">
-                ${favoritos.includes(producto.id) ? '❤️' : '🤍'}
+                ${favoritos.includes(String(producto.id)) ? '❤️' : '🤍'}
               </button>
             </div>
 
@@ -384,6 +406,10 @@ function render() {
       render();
     });
 
+    document.getElementById('btn-fav-detalle').addEventListener('click', () => {
+      toggleFavorito(producto.id);
+    });
+
     // Cierra el modal de "Ver más información" sin desmontar la pantalla
     if (modalInfoAbierto) {
       document.getElementById('btn-modal-cancelar').addEventListener('click', () => {
@@ -416,7 +442,7 @@ function render() {
   }
 
   if (vistaActual === 'favoritos') {
-    const productosFavoritos = productos.filter((p) => favoritos.includes(p.id));
+    const productosFavoritos = productos.filter((p) => favoritos.includes(String(p.id)));
 
     const listaFavoritosHTML = productosFavoritos.length > 0
       ? productosFavoritos
@@ -530,10 +556,6 @@ function render() {
 
     document.getElementById('btn-volver-detalle').addEventListener('click', () => {
       verDetalleProducto(producto.id);
-    });
-
-    document.getElementById('btn-fav-detalle').addEventListener('click', () => {
-      toggleFavorito(producto.id);
     });
 
     return;
