@@ -15,6 +15,7 @@ let terminoBusqueda = '';
 let productoIdActual = null;
 let modalInfoAbierto = false; // Controla la visibilidad del modal "Ver más información"
 let modalWhatsappAbierto = false; // Controla la visibilidad del modal "¿Ir a WhatsApp?"
+let favoritos = []; //array para poner favoritos
 
 export function navegarA(vista, categoriaId = null) {
   vistaActual = vista;
@@ -35,6 +36,15 @@ function verDetalleProducto(productId) {
   vistaActual = 'detalle';
   modalInfoAbierto = false;
   modalWhatsappAbierto = false;
+  render();
+}
+
+function toggleFavorito(id) {
+  if (favoritos.includes(id)) {
+    favoritos = favoritos.filter((favId) => favId !== id);
+  } else {
+    favoritos.push(id);
+  }
   render();
 }
 
@@ -182,7 +192,9 @@ function render() {
                 <h3 class="product-card__name">${prod.nombre}</h3>
                 <p class="product-card__description">${prod.descripcion}</p>
               </div>
-              <button class="product-card__favorite-btn" aria-label="Favorito">🤍</button>
+              <button class="product-card__favorite-btn" data-id="${prod.id}" aria-label="Favorito">
+                ${favoritos.includes(prod.id) ? '❤️' : '🤍'}
+              </button>
             </article>
           `
           )
@@ -241,6 +253,13 @@ function render() {
     document.querySelectorAll('.product-card').forEach((card) => {
       card.addEventListener('click', () => {
         verDetalleProducto(card.dataset.id);
+      });
+    });
+
+     document.querySelectorAll('.product-card__favorite-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // evita que también dispare la navegación al detalle
+        toggleFavorito(btn.dataset.id);
       });
     });
 
@@ -318,7 +337,9 @@ function render() {
           <div class="product-detail">
             <div class="product-detail__hero">
               <span class="product-detail__hero-icon">📦</span>
-              <button class="product-detail__favorite-btn" id="btn-fav-detalle" aria-label="Favorito">🤍</button>
+              <button class="product-detail__favorite-btn" id="btn-fav-detalle" aria-label="Favorito">
+                ${favoritos.includes(producto.id) ? '❤️' : '🤍'}
+              </button>
             </div>
 
             <h2 class="product-detail__name">${producto.nombre}</h2>
@@ -395,11 +416,26 @@ function render() {
   }
 
   if (vistaActual === 'favoritos') {
-    const favoritosVacios = true;
+    const productosFavoritos = productos.filter((p) => favoritos.includes(p.id));
 
-    const listaFavoritosHTML = favoritosVacios
-      ? `<p class="favorites-screen__empty">Aún no tienes productos favoritos.</p>`
-      : '';
+    const listaFavoritosHTML = productosFavoritos.length > 0
+      ? productosFavoritos
+          .map(
+            (prod) => `
+            <article class="product-card" data-id="${prod.id}">
+              <div class="product-card__thumb">
+                <span class="product-card__thumb-icon">📦</span>
+              </div>
+              <div class="product-card__content">
+                <h3 class="product-card__name">${prod.nombre}</h3>
+                <p class="product-card__description">${prod.descripcion}</p>
+              </div>
+              <button class="product-card__favorite-btn" data-id="${prod.id}" aria-label="Favorito">❤️</button>
+            </article>
+          `
+          )
+          .join('')
+      : `<p class="favorites-screen__empty">Aún no tienes productos favoritos.</p>`;
 
     app.innerHTML = `
       <div class="main-content-wrapper">
@@ -421,6 +457,19 @@ function render() {
         ${renderBottomNav()}
       </div>
     `;
+
+    document.querySelectorAll('.product-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        verDetalleProducto(card.dataset.id);
+      });
+    });
+
+    document.querySelectorAll('.product-card__favorite-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleFavorito(btn.dataset.id);
+      });
+    });
 
     setupBottomNavEvents();
     return;
@@ -481,6 +530,10 @@ function render() {
 
     document.getElementById('btn-volver-detalle').addEventListener('click', () => {
       verDetalleProducto(producto.id);
+    });
+
+    document.getElementById('btn-fav-detalle').addEventListener('click', () => {
+      toggleFavorito(producto.id);
     });
 
     return;
