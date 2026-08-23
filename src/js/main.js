@@ -395,18 +395,33 @@ function render() {
   }
 
   if (vistaActual === 'favoritos') {
+    const favoritosVacios = true;
+
+    const listaFavoritosHTML = favoritosVacios
+      ? `<p class="favorites-screen__empty">Aún no tienes productos favoritos.</p>`
+      : '';
+
     app.innerHTML = `
       <div class="main-content-wrapper">
         <header class="home-header">
           <h1 class="home-header__brand">Streatra</h1>
         </header>
-        <main class="spa-container" style="padding: 24px; text-align: center;">
-          <h2>Favoritos</h2>
-          <p style="color: #8A827C; margin-top: 8px;">Tus productos guardados aparecerán aquí.</p>
+
+        <main class="favorites-screen">
+          <div class="products-screen__nav">
+            <h2 class="products-screen__heading">Favoritos</h2>
+          </div>
+
+          <section class="products-container">
+            <div class="products-list" id="favorites-list">
+              ${listaFavoritosHTML}
+            </div>
+          </section>
         </main>
         ${renderBottomNav()}
       </div>
     `;
+
     setupBottomNavEvents();
     return;
   }

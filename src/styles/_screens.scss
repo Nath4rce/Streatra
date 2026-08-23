@@ -289,3 +289,11 @@ $color-whatsapp: #25d366;
     }
   }
 }
+
+.favorites-screen {
+  &__empty {
+    text-align: center;
+    color: $color-text-secondary;
+    margin-top: $spacing-xl;
+  }
+}
