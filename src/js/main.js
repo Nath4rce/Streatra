@@ -118,6 +118,39 @@ function renderBottomNav() {
   `;
 }
 
+function renderProductCard(prod) {
+  const esFavorito = favoritos.includes(String(prod.id));
+  return `
+    <article class="product-card" data-id="${prod.id}">
+      <div class="product-card__thumb">
+        <span class="product-card__thumb-icon">📦</span>
+      </div>
+      <div class="product-card__content">
+        <h3 class="product-card__name">${prod.nombre}</h3>
+        <p class="product-card__description">${prod.descripcion}</p>
+      </div>
+      <button class="product-card__favorite-btn" data-id="${prod.id}" aria-label="Favorito">
+        ${esFavorito ? '❤️' : '🤍'}
+      </button>
+    </article>
+  `;
+}
+
+function setupProductCardEvents() {
+  document.querySelectorAll('.product-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      verDetalleProducto(card.dataset.id);
+    });
+  });
+
+  document.querySelectorAll('.product-card__favorite-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleFavorito(btn.dataset.id);
+    });
+  });
+}
+
 function setupBottomNavEvents() {
   document.querySelectorAll('.bottom-nav__item').forEach((item) => {
     item.addEventListener('click', () => {
@@ -231,25 +264,8 @@ function render() {
     `;
 
     const listaProductosHTML = productosFiltrados.length > 0
-      ? productosFiltrados
-          .map(
-            (prod) => `
-            <article class="product-card" data-id="${prod.id}">
-              <div class="product-card__thumb">
-                <span class="product-card__thumb-icon">📦</span>
-              </div>
-              <div class="product-card__content">
-                <h3 class="product-card__name">${prod.nombre}</h3>
-                <p class="product-card__description">${prod.descripcion}</p>
-              </div>
-              <button class="product-card__favorite-btn" data-id="${prod.id}" aria-label="Favorito">
-                ${favoritos.includes(String(prod.id)) ? '❤️' : '🤍'}
-              </button>
-            </article>
-          `
-          )
-          .join('')
-      : `<p style="text-align: center; color: #8A827C; margin-top: 32px;">${t('noResults')}</p>`;
+      ? productosFiltrados.map(renderProductCard).join('')
+      : `<p class="empty-state-message">${t('noResults')}</p>`;
 
     const nombreCategoriaMostrar = categorias.find((c) => c.id === categoriaActual)?.nombre || 'Tiendas';
 
@@ -300,18 +316,7 @@ function render() {
       });
     });
 
-    document.querySelectorAll('.product-card').forEach((card) => {
-      card.addEventListener('click', () => {
-        verDetalleProducto(card.dataset.id);
-      });
-    });
-
-     document.querySelectorAll('.product-card__favorite-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation(); // evita que también dispare la navegación al detalle
-        toggleFavorito(btn.dataset.id);
-      });
-    });
+    setupProductCardEvents();
 
     const inputBusqueda = document.getElementById('product-search-input');
     inputBusqueda.addEventListener('input', (e) => {
@@ -332,7 +337,7 @@ function render() {
     if (!producto) {
       app.innerHTML = `
         <div class="main-content-wrapper">
-          <p style="padding: 24px; text-align: center; color: #8A827C;">${t('productoNoEncontrado')}</p>
+          <p class="empty-state-message empty-state-message--padded">${t('productoNoEncontrado')}</p>
         </div>
       `;
       return;
@@ -475,22 +480,7 @@ function render() {
     const productosFavoritos = productos.filter((p) => favoritos.includes(String(p.id)));
 
     const listaFavoritosHTML = productosFavoritos.length > 0
-      ? productosFavoritos
-          .map(
-            (prod) => `
-            <article class="product-card" data-id="${prod.id}">
-              <div class="product-card__thumb">
-                <span class="product-card__thumb-icon">📦</span>
-              </div>
-              <div class="product-card__content">
-                <h3 class="product-card__name">${prod.nombre}</h3>
-                <p class="product-card__description">${prod.descripcion}</p>
-              </div>
-              <button class="product-card__favorite-btn" data-id="${prod.id}" aria-label="Favorito">❤️</button>
-            </article>
-          `
-          )
-          .join('')
+      ? productosFavoritos.map(renderProductCard).join('')
       : `<p class="favorites-screen__empty">${t('favoritosEmpty')}</p>`;
 
     app.innerHTML = `
@@ -514,18 +504,7 @@ function render() {
       </div>
     `;
 
-    document.querySelectorAll('.product-card').forEach((card) => {
-      card.addEventListener('click', () => {
-        verDetalleProducto(card.dataset.id);
-      });
-    });
-
-    document.querySelectorAll('.product-card__favorite-btn').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleFavorito(btn.dataset.id);
-      });
-    });
+    setupProductCardEvents();
 
     setupBottomNavEvents();
     return;
@@ -594,7 +573,7 @@ function render() {
     if (!producto) {
       app.innerHTML = `
         <div class="main-content-wrapper">
-          <p style="padding: 24px; text-align: center; color: #8A827C;">${t('productoNoEncontrado')}</p>
+          <p class="empty-state-message empty-state-message--padded">${t('productoNoEncontrado')}</p>
         </div>
       `;
       return;

@@ -352,3 +352,14 @@ $color-whatsapp: #25d366;
     }
   }
 }
+
+.empty-state-message {
+  text-align: center;
+  color: $color-text-secondary;
+  margin-top: $spacing-xl;
+
+  &--padded {
+    padding: $spacing-lg;
+    margin-top: 0;
+  }
+}
