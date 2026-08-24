@@ -4,6 +4,7 @@
 
 import '../styles/main.scss';
 import { categorias, productos } from './data.js';
+import { t, getIdioma, setIdioma } from './i18n.js';
 
 
 const app = document.getElementById('app');
@@ -103,15 +104,15 @@ function renderBottomNav() {
     <nav class="bottom-nav">
       <button class="bottom-nav__item ${vistaActual === 'home' || vistaActual === 'categorias' || vistaActual === 'productos' ? 'bottom-nav__item--active' : ''}" data-nav="home">
         <span class="bottom-nav__icon">🏠</span>
-        <span class="bottom-nav__label">Home</span>
+        <span class="bottom-nav__label">${t('navHome')}</span>
       </button>
       <button class="bottom-nav__item ${vistaActual === 'favoritos' ? 'bottom-nav__item--active' : ''}" data-nav="favoritos">
         <span class="bottom-nav__icon">🤍</span>
-        <span class="bottom-nav__label">Favoritos</span>
+        <span class="bottom-nav__label">${t('navFavoritos')}</span>
       </button>
       <button class="bottom-nav__item ${vistaActual === 'ajustes' ? 'bottom-nav__item--active' : ''}" data-nav="ajustes">
         <span class="bottom-nav__icon">⚙️</span>
-        <span class="bottom-nav__label">Ajustes</span>
+        <span class="bottom-nav__label">${t('navAjustes')}</span>
       </button>
     </nav>
   `;
@@ -165,7 +166,7 @@ function render() {
 
         <main class="home-content">
           <section class="categories-section">
-            <h2 class="categories-section__title">Categorías</h2>
+            <h2 class="categories-section__title">${t('categoriasTitle')}</h2>
             <div class="categories-container">
               <div class="categories-list" id="categories-list">
                 ${listaCategoriasHTML}
@@ -208,15 +209,15 @@ function render() {
         );
 
     const etiquetasSubcategoria = {
-      comida: 'Comida',
-      bebidas: 'Bebidas',
-      accesorios: 'Accesorios',
-      utiles: 'Útiles',
+      comida: t("filterComida"),
+      bebidas: t("filterBebidas"),
+      accesorios: t("filterAccesorios"),
+      utiles: t("filterUtiles"),
     };
 
     const filtrosHTML = `
       <button class="filter-chip ${filtroSubcategoria === 'todos' ? 'filter-chip--active' : ''}" data-filtro="todos">
-        Todos
+        ${t('filterAll')}
       </button>
       ${subcategoriasDisponibles
         .map(
@@ -248,7 +249,7 @@ function render() {
           `
           )
           .join('')
-      : `<p style="text-align: center; color: #8A827C; margin-top: 32px;">No hay productos que coincidan con tu búsqueda.</p>`;
+      : `<p style="text-align: center; color: #8A827C; margin-top: 32px;">${t('noResults')}</p>`;
 
     const nombreCategoriaMostrar = categorias.find((c) => c.id === categoriaActual)?.nombre || 'Tiendas';
 
@@ -269,7 +270,7 @@ function render() {
               type="text"
               id="product-search-input"
               class="search-input"
-              placeholder="Buscar producto"
+              placeholder="${t('searchPlaceholder')}"
               value="${terminoBusqueda}"
             />
           </div>
@@ -331,7 +332,7 @@ function render() {
     if (!producto) {
       app.innerHTML = `
         <div class="main-content-wrapper">
-          <p style="padding: 24px; text-align: center; color: #8A827C;">Producto no encontrado.</p>
+          <p style="padding: 24px; text-align: center; color: #8A827C;">${t('productoNoEncontrado')}</p>
         </div>
       `;
       return;
@@ -344,11 +345,11 @@ function render() {
           <span class="modal-card__icon">🔗</span>
           <h3 class="modal-card__title">¿Ver más información?</h3>
           <p class="modal-card__text">
-            Serás redirigido al catálogo o archivo de <strong>${producto.vendedor}</strong>.
+             ${t('modalInfoText', { vendedor: producto.vendedor })}
           </p>
           <div class="modal-card__actions">
-            <button class="modal-card__btn modal-card__btn--cancel" id="btn-modal-cancelar">Cancelar</button>
-            <button class="modal-card__btn modal-card__btn--confirm" id="btn-modal-continuar">Continuar</button>
+            <button class="modal-card__btn modal-card__btn--cancel" id="btn-modal-cancelar">${t('cancelar')}</button>
+            <button class="modal-card__btn modal-card__btn--confirm" id="btn-modal-continuar">${t('continuar')}</button>
           </div>
         </div>
       </div>
@@ -361,11 +362,12 @@ function render() {
           <span class="modal-card__icon">💬</span>
           <h3 class="modal-card__title">¿Ir a WhatsApp?</h3>
           <p class="modal-card__text">
-            Vas a contactar a <strong>${producto.vendedor}</strong> por WhatsApp para preguntar por "${producto.nombre}".
+             ${t('modalWppText', { vendedor: producto.vendedor, producto: producto.nombre })}
+          </p>
           </p>
           <div class="modal-card__actions">
-            <button class="modal-card__btn modal-card__btn--cancel" id="btn-wpp-cancelar">Cancelar</button>
-            <button class="modal-card__btn modal-card__btn--confirm" id="btn-wpp-continuar">Continuar</button>
+            <button class="modal-card__btn modal-card__btn--cancel" id="btn-wpp-cancelar">${t('cancelar')}</button>
+            <button class="modal-card__btn modal-card__btn--confirm" id="btn-wpp-continuar">${t('continuar')}</button>
           </div>
         </div>
       </div>
@@ -380,7 +382,7 @@ function render() {
         <main class="products-screen">
           <div class="products-screen__nav">
             <button class="products-screen__back-btn" id="btn-volver-productos" aria-label="Volver">←</button>
-            <h2 class="products-screen__heading">Detalles de la tienda</h2>
+            <h2 class="products-screen__heading">${t('detalleTitle')}</h2>
           </div>
 
           <div class="product-detail">
@@ -395,18 +397,18 @@ function render() {
             <p class="product-detail__description">${producto.descripcion}</p>
 
             <div class="product-detail__seller-box">
-              <p class="product-detail__seller-label">Vendedor</p>
+              <p class="product-detail__seller-label">${t('vendedorLabel')}</p>
               <p class="product-detail__seller-name">${producto.vendedor}</p>
-              <p class="product-detail__seller-schedule">Horario: ${producto.horario}</p>
+              <p class="product-detail__seller-schedule">${t('horarioLabel', { horario: producto.horario })}</p>
             </div>
 
             <div class="product-detail__actions">
               <button class="product-detail__btn product-detail__btn--info" id="btn-ver-info">
-                <span>Ver más información</span>
+                <span>${t('verMasInfo')}</span>
                 <span>🔗</span>
               </button>
               <button class="product-detail__btn product-detail__btn--whatsapp" id="btn-comprar-wpp">
-                <span>Comprar por WhatsApp</span>
+                <span>${t('comprarWpp')}</span>
                 <span>💬</span>
               </button>
             </div>
@@ -488,7 +490,7 @@ function render() {
           `
           )
           .join('')
-      : `<p class="favorites-screen__empty">Aún no tienes productos favoritos.</p>`;
+      : `<p class="favorites-screen__empty">${t('favoritosEmpty')}</p>`;
 
     app.innerHTML = `
       <div class="main-content-wrapper">
@@ -537,13 +539,13 @@ function render() {
 
         <main class="settings-screen">
           <div class="products-screen__nav">
-            <h2 class="products-screen__heading">Ajustes</h2>
+            <h2 class="products-screen__heading">${t('ajustesTitle')}</h2>
           </div>
 
           <section class="settings-screen__group">
-            <h3 class="settings-screen__group-title">Apariencia</h3>
+            <h3 class="settings-screen__group-title">${t('apariencia')}</h3>
             <div class="settings-screen__item">
-              <span class="settings-screen__item-label">Modo oscuro</span>
+              <span class="settings-screen__item-label">${t('modoOscuro')}</span>
               <button
                 class="settings-toggle ${modoOscuro ? 'settings-toggle--active' : ''}"
                 id="btn-toggle-tema"
@@ -556,10 +558,13 @@ function render() {
           </section>
 
           <section class="settings-screen__group">
-            <h3 class="settings-screen__group-title">Idioma</h3>
+            <h3 class="settings-screen__group-title">${t('idiomaGroup')}</h3>
             <div class="settings-screen__item">
-              <span class="settings-screen__item-label">Idioma de la aplicación</span>
-              <span class="settings-screen__item-value">Español</span>
+              <span class="settings-screen__item-label">${t('idiomaLabel')}</span>
+              <div class="language-selector">
+                <button class="language-selector__btn ${getIdioma() === 'es' ? 'language-selector__btn--active' : ''}" data-lang="es">ES</button>
+                <button class="language-selector__btn ${getIdioma() === 'en' ? 'language-selector__btn--active' : ''}" data-lang="en">EN</button>
+              </div>
             </div>
           </section>
         </main>
@@ -570,7 +575,14 @@ function render() {
     document.getElementById('btn-toggle-tema').addEventListener('click', () => {
       toggleModoOscuro();
     });
-    
+
+    document.querySelectorAll('.language-selector__btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        setIdioma(btn.dataset.lang);
+        render();
+      });
+    });
+
     setupBottomNavEvents();
     return;
   }
@@ -581,7 +593,7 @@ function render() {
     if (!producto) {
       app.innerHTML = `
         <div class="main-content-wrapper">
-          <p style="padding: 24px; text-align: center; color: #8A827C;">Producto no encontrado.</p>
+          <p style="padding: 24px; text-align: center; color: #8A827C;">${t('productoNoEncontrado')}</p>
         </div>
       `;
       return;
@@ -599,12 +611,12 @@ function render() {
 
           <div class="whatsapp-screen__content">
             <span class="whatsapp-screen__icon">💬</span>
-            <h2 class="whatsapp-screen__title">Conectando con WhatsApp</h2>
+            <h2 class="whatsapp-screen__title">${t('whatsappConectando')}</h2>
             <p class="whatsapp-screen__text">
-              Estás a punto de contactar a <strong>${producto.vendedor}</strong> por "${producto.nombre}".
+              ${t('whatsappTexto', { vendedor: producto.vendedor, producto: producto.nombre })}
             </p>
             <a href="${linkWhatsapp}" target="_blank" rel="noopener noreferrer" class="whatsapp-screen__open-btn" id="btn-abrir-whatsapp">
-              Abrir WhatsApp
+               ${t('whatsappAbrir')}
             </a>
           </div>
         </main>

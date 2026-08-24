@@ -76,7 +76,7 @@ body.dark-mode {
   color: $color-text-dark;
 
   // Contenedores / superficies
-    .home-header,
+  .home-header,
   .settings-screen__item,
   .settings-screen__group-title,
   .product-card,
@@ -90,6 +90,7 @@ body.dark-mode {
   .products-screen__back-btn,
   .search-input,
   .filter-chip,
+  .language-selector__btn,
   .modal-card,
   .favorites-screen__empty {
     background-color: $color-surface-dark;
