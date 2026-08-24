@@ -78,7 +78,6 @@ body.dark-mode {
   // Contenedores / superficies
   .home-header,
   .settings-screen__item,
-  .settings-screen__group-title,
   .product-card,
   .product-detail,
   .product-detail__seller-box,
@@ -116,7 +115,8 @@ body.dark-mode {
   .settings-screen__item-label,
   .modal-card__title,
   .product-detail__name,
-  .product-detail__seller-name {
+  .product-detail__seller-name,
+  .settings-screen__group-title {
     color: $color-text-dark;
   }
 
@@ -124,6 +124,12 @@ body.dark-mode {
   .filter-chip--active {
     background-color: $color-primary;
     color: $color-surface-dark;
+  }
+
+  .language-selector__btn--active {
+    background-color: $color-primary;
+    color: $color-surface-dark;
+    border-color: $color-primary;
   }
 
   // El input de búsqueda necesita placeholder legible
