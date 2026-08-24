@@ -4,112 +4,148 @@
 
 const IDIOMA_KEY = 'streatra_idioma';
 
-const translations = {
+export const traducciones = {
   es: {
+    // Navegación Inferior
     navHome: 'Home',
     navFavoritos: 'Favoritos',
     navAjustes: 'Ajustes',
+
+    // Pantalla Home / Categorías
     categoriasTitle: 'Categorías',
-    searchPlaceholder: 'Buscar producto',
+    cat_all: 'Todos',
+    cat_food: 'Alimentos',
+    cat_jewelry: 'Bisutería',
+    cat_stationery: 'Papelería',
+
+    // Filtros de Productos
     filterAll: 'Todos',
     filterComida: 'Comida',
     filterBebidas: 'Bebidas',
     filterAccesorios: 'Accesorios',
     filterUtiles: 'Útiles',
+
+    // Búsqueda y Estados vacíos
+    searchPlaceholder: 'Buscar producto',
     noResults: 'No hay productos que coincidan con tu búsqueda.',
-    categoriaDefault: 'Tiendas',
+    favoritosEmpty: 'Aún no tienes productos guardados en favoritos.',
+    productoNoEncontrado: 'Producto no encontrado.',
+
+    // Descripciones de Productos
+    desc_empanadas: 'Pollo o Carne, unidad',
+    desc_brownies: 'Porción individual con arequipe',
+    desc_jugos: 'Botella 500ml (Mora, Mango, Fresa)',
+    desc_pulsera: 'Diseño ajustable hecho a mano',
+    desc_cuaderno: '80 hojas cuadriculadas ecológicas',
+
+    // Pantalla Detalle
     detalleTitle: 'Detalles de la tienda',
     vendedorLabel: 'Vendedor',
-    horarioLabel: 'Horario: {horario}',
+    horarioTitle: 'Horario',
     verMasInfo: 'Ver más información',
     comprarWpp: 'Comprar por WhatsApp',
-    modalInfoTitle: '¿Ver más información?',
-    modalInfoText: 'Serás redirigido al catálogo de <strong>{vendedor}</strong>.',
+
+    // Modales
     cancelar: 'Cancelar',
     continuar: 'Continuar',
-    modalWppTitle: '¿Ir a WhatsApp?',
-    modalWppText: 'Se abrirá un chat con el vendedor <strong>{vendedor}</strong>.',
-    favoritosEmpty: 'Aún no tienes productos favoritos.',
-    favoritosTitle: 'Favoritos',
+    modalInfoText: 'Se abrirá un canva o un drive del vendedor {vendedor}',
+    modalWppText: 'Te comunicaremos directamente con {vendedor} para gestionar tu pedido.',
+
+    // Pantalla WhatsApp
+    whatsappConectando: 'Conectando con la tienda',
+    whatsappTexto: 'Estás a punto de comunicarte con {vendedor} para realizar tu pedido de "{producto}".',
+    whatsappAbrir: 'Abrir chat de WhatsApp',
+
+    // Pantalla Ajustes
     ajustesTitle: 'Ajustes',
     apariencia: 'Apariencia',
     modoOscuro: 'Modo oscuro',
     idiomaGroup: 'Idioma',
-    idiomaLabel: 'Idioma de la aplicación',
-    whatsappConectando: 'Conectando con WhatsApp',
-    whatsappTexto: 'Estás a punto de contactar a <strong>{vendedor}</strong> por "{producto}".',
-    whatsappAbrir: 'Abrir WhatsApp',
-    productoNoEncontrado: 'Producto no encontrado.',
-    horarioTitle: 'Horario',
+    idiomaLabel: 'Idioma de la aplicación'
   },
   en: {
+    // Bottom Navigation
     navHome: 'Home',
     navFavoritos: 'Favorites',
     navAjustes: 'Settings',
+
+    // Home Screen / Categories
     categoriasTitle: 'Categories',
-    searchPlaceholder: 'Search product',
+    cat_all: 'All',
+    cat_food: 'Food',
+    cat_jewelry: 'Jewelry',
+    cat_stationery: 'Stationery',
+
+    // Product Filters
     filterAll: 'All',
     filterComida: 'Food',
-    filterBebidas: 'Drinks',
+    filterBebidas: 'Beverages',
     filterAccesorios: 'Accessories',
     filterUtiles: 'Supplies',
+
+    // Search and Empty States
+    searchPlaceholder: 'Search product',
     noResults: 'No products match your search.',
-    categoriaDefault: 'Shops',
+    favoritosEmpty: 'You do not have any favorite products yet.',
+    productoNoEncontrado: 'Product not found.',
+
+    // Product Descriptions
+    desc_empanadas: 'Chicken or Beef, 1 unit',
+    desc_brownies: 'Individual slice with caramel',
+    desc_jugos: '500ml bottle (Blackberry, Mango, Strawberry)',
+    desc_pulsera: 'Handmade adjustable design',
+    desc_cuaderno: '80 eco-friendly grid pages',
+
+    // Detail Screen
     detalleTitle: 'Shop details',
     vendedorLabel: 'Seller',
-    horarioLabel: 'Hours: {horario}',
-    verMasInfo: 'See more information',
+    horarioTitle: 'Schedule',
+    verMasInfo: 'More information',
     comprarWpp: 'Buy via WhatsApp',
-    modalInfoTitle: 'See more information?',
-    modalInfoText: 'You will be redirected to the catalog of <strong>{vendedor}</strong>.',
+
+    // Modals
     cancelar: 'Cancel',
     continuar: 'Continue',
-    modalWppTitle: 'Go to WhatsApp?',
-    modalWppText: 'A chat with seller <strong>{vendedor}</strong> will open.',
-    favoritosEmpty: "You don't have any favorite products yet.",
-    favoritosTitle: 'Favorites',
+    modalInfoText: 'A Canva or Drive link from {vendedor} will open.',
+    modalWppText: 'You will connect directly with {vendedor} to place your order.',
+
+    // WhatsApp Screen
+    whatsappConectando: 'Connecting with the store',
+    whatsappTexto: 'You are about to connect with {vendedor} to order "{producto}".',
+    whatsappAbrir: 'Open WhatsApp chat',
+
+    // Settings Screen
     ajustesTitle: 'Settings',
     apariencia: 'Appearance',
     modoOscuro: 'Dark mode',
     idiomaGroup: 'Language',
-    idiomaLabel: 'App language',
-    whatsappConectando: 'Connecting to WhatsApp',
-    whatsappTexto: 'You are about to contact <strong>{vendedor}</strong> about "{producto}".',
-    whatsappAbrir: 'Open WhatsApp',
-    productoNoEncontrado: 'Product not found.',
-    horarioTitle: 'Hours',
-  },
+    idiomaLabel: 'App language'
+  }
 };
 
-export function cargarIdioma() {
+export function getIdioma() {
   try {
-    const guardado = localStorage.getItem(IDIOMA_KEY);
-    return guardado === 'en' ? 'en' : 'es';
-  } catch (error) {
-    console.error('Error al cargar idioma desde localStorage:', error);
+    return localStorage.getItem(IDIOMA_KEY) || 'es';
+  } catch {
     return 'es';
   }
 }
 
-let idiomaActivo = cargarIdioma();
-
-export function setIdioma(idioma) {
-  idiomaActivo = idioma;
+export function setIdioma(lang) {
   try {
-    localStorage.setItem(IDIOMA_KEY, idioma);
+    localStorage.setItem(IDIOMA_KEY, lang);
   } catch (error) {
     console.error('Error al guardar idioma en localStorage:', error);
   }
 }
 
-export function getIdioma() {
-  return idiomaActivo;
-}
+export function t(clave, params = {}) {
+  const lang = getIdioma();
+  let texto = traducciones[lang]?.[clave] || traducciones['es']?.[clave] || clave;
 
-export function t(key, vars = {}) {
-  let texto = translations[idiomaActivo]?.[key] ?? translations.es[key] ?? key;
-  Object.keys(vars).forEach((k) => {
-    texto = texto.replace(`{${k}}`, vars[k]);
+  Object.keys(params).forEach((param) => {
+    texto = texto.replace(new RegExp(`{${param}}`, 'g'), params[param]);
   });
+
   return texto;
 }

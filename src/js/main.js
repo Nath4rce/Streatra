@@ -6,7 +6,6 @@ import '../styles/main.scss';
 import { categorias, productos } from './data.js';
 import { t, getIdioma, setIdioma } from './i18n.js';
 
-
 const app = document.getElementById('app');
 const FAVORITOS_KEY = 'streatra_favoritos';
 const TEMA_KEY = 'streatra_tema';
@@ -16,8 +15,8 @@ let categoriaActual = 'todos';
 let filtroSubcategoria = 'todos';
 let terminoBusqueda = '';
 let productoIdActual = null;
-let modalInfoAbierto = false; // Controla la visibilidad del modal "Ver más información"
-let modalWhatsappAbierto = false; // Controla la visibilidad del modal "¿Ir a WhatsApp?"
+let modalInfoAbierto = false;
+let modalWhatsappAbierto = false;
 
 function cargarTema() {
   try {
@@ -120,6 +119,8 @@ function renderBottomNav() {
 
 function renderProductCard(prod) {
   const esFavorito = favoritos.includes(String(prod.id));
+  const descripcionTraducida = t(prod.descripcionKey);
+
   return `
     <article class="product-card" data-id="${prod.id}">
       <div class="product-card__thumb">
@@ -127,7 +128,7 @@ function renderProductCard(prod) {
       </div>
       <div class="product-card__content">
         <h3 class="product-card__name">${prod.nombre}</h3>
-        <p class="product-card__description">${prod.descripcion}</p>
+        <p class="product-card__description">${descripcionTraducida}</p>
       </div>
       <button class="product-card__favorite-btn" data-id="${prod.id}" aria-label="Favorito">
         ${esFavorito ? '❤️' : '🤍'}
@@ -154,8 +155,7 @@ function setupProductCardEvents() {
 function setupBottomNavEvents() {
   document.querySelectorAll('.bottom-nav__item').forEach((item) => {
     item.addEventListener('click', () => {
-      const destino = item.dataset.nav;
-      navegarA(destino);
+      navegarA(item.dataset.nav);
     });
   });
 }
@@ -181,14 +181,17 @@ function render() {
 
   if (vistaActual === 'home' || vistaActual === 'categorias') {
     const listaCategoriasHTML = categorias
-      .map(
-        (cat) => `
+      .map((cat) => {
+        const nombreTraducido = t(cat.nombreKey);
+        return `
         <button class="category-card" data-category="${cat.id}">
-          <span class="category-card__icon">${cat.icono}</span>
-          <span class="category-card__name">${cat.nombre}</span>
+          <span class="category-card__icon">
+            <img class="category-card__img" src="${cat.icono}" alt="${nombreTraducido}" />
+          </span>
+          <span class="category-card__name">${nombreTraducido}</span>
         </button>
-      `
-      )
+      `;
+      })
       .join('');
 
     app.innerHTML = `
@@ -237,15 +240,17 @@ function render() {
     const terminoNormalizado = terminoBusqueda.trim().toLowerCase();
     const productosFiltrados = terminoNormalizado === ''
       ? productosPorSubcategoria
-      : productosPorSubcategoria.filter((p) =>
-          p.nombre.toLowerCase().includes(terminoNormalizado)
-        );
+      : productosPorSubcategoria.filter((p) => {
+          const desc = t(p.descripcionKey).toLowerCase();
+          const nom = p.nombre.toLowerCase();
+          return nom.includes(terminoNormalizado) || desc.includes(terminoNormalizado);
+        });
 
     const etiquetasSubcategoria = {
-      comida: t("filterComida"),
-      bebidas: t("filterBebidas"),
-      accesorios: t("filterAccesorios"),
-      utiles: t("filterUtiles"),
+      comida: t('filterComida'),
+      bebidas: t('filterBebidas'),
+      accesorios: t('filterAccesorios'),
+      utiles: t('filterUtiles'),
     };
 
     const filtrosHTML = `
@@ -267,7 +272,8 @@ function render() {
       ? productosFiltrados.map(renderProductCard).join('')
       : `<p class="empty-state-message">${t('noResults')}</p>`;
 
-    const nombreCategoriaMostrar = categorias.find((c) => c.id === categoriaActual)?.nombre || 'Tiendas';
+    const catObj = categorias.find((c) => c.id === categoriaActual);
+    const nombreCategoriaMostrar = catObj ? t(catObj.nombreKey) : 'Streatra';
 
     app.innerHTML = `
       <div class="main-content-wrapper">
@@ -343,12 +349,13 @@ function render() {
       return;
     }
 
-    // Modal "Ver más información" — capa flotante condicional
+    const descripcionTraducida = t(producto.descripcionKey);
+
     const modalHTML = modalInfoAbierto ? `
       <div class="modal-overlay" id="modal-overlay">
         <div class="modal-card">
           <span class="modal-card__icon">🔗</span>
-          <h3 class="modal-card__title">¿Ver más información?</h3>
+          <h3 class="modal-card__title">${t('verMasInfo')}</h3>
           <p class="modal-card__text">
              ${t('modalInfoText', { vendedor: producto.vendedor })}
           </p>
@@ -360,19 +367,17 @@ function render() {
       </div>
     ` : '';
 
-    // Modal "¿Ir a WhatsApp?" — capa flotante condicional, con modificador de estilo propio
     const modalWhatsappHTML = modalWhatsappAbierto ? `
       <div class="modal-overlay" id="modal-overlay-whatsapp">
         <div class="modal-card modal-card--whatsapp">
           <span class="modal-card__icon">💬</span>
-          <h3 class="modal-card__title">¿Ir a WhatsApp?</h3>
+          <h3 class="modal-card__title">${t('comprarWpp')}</h3>
           <p class="modal-card__text">
-             ${t('modalWppText', { vendedor: producto.vendedor})}
-          </p>
+             ${t('modalWppText', { vendedor: producto.vendedor })}
           </p>
           <div class="modal-card__actions">
             <button class="modal-card__btn modal-card__btn--cancel" id="btn-wpp-cancelar">${t('cancelar')}</button>
-            <button class="modal-card__btn modal-card__btn--confirm" id="btn-wpp-continuar">${t('continuar')}</button>
+            <button class="modal-card__btn modal-card__btn--confirm" id="btn-wpp-continuar" style="background-color: #25D366; border-color: #25D366;">${t('continuar')}</button>
           </div>
         </div>
       </div>
@@ -399,7 +404,7 @@ function render() {
             </div>
 
             <h2 class="product-detail__name">${producto.nombre}</h2>
-            <p class="product-detail__description">${producto.descripcion}</p>
+            <p class="product-detail__description">${descripcionTraducida}</p>
 
             <div class="product-detail__seller-box">
               <p class="product-detail__seller-label">${t('vendedorLabel')}</p>
@@ -429,15 +434,15 @@ function render() {
       navegarA('productos', categoriaActual);
     });
 
-    // Abre el modal de "Ver más información"
     document.getElementById('btn-ver-info').addEventListener('click', () => {
       modalInfoAbierto = true;
+      modalWhatsappAbierto = false;
       render();
     });
 
-    // Abre el modal de confirmación de WhatsApp
     document.getElementById('btn-comprar-wpp').addEventListener('click', () => {
       modalWhatsappAbierto = true;
+      modalInfoAbierto = false;
       render();
     });
 
@@ -445,7 +450,6 @@ function render() {
       toggleFavorito(producto.id);
     });
 
-    // Cierra el modal de "Ver más información" sin desmontar la pantalla
     if (modalInfoAbierto) {
       document.getElementById('btn-modal-cancelar').addEventListener('click', () => {
         modalInfoAbierto = false;
@@ -459,7 +463,6 @@ function render() {
       });
     }
 
-    // Cierra o confirma el modal de WhatsApp
     if (modalWhatsappAbierto) {
       document.getElementById('btn-wpp-cancelar').addEventListener('click', () => {
         modalWhatsappAbierto = false;
@@ -491,7 +494,7 @@ function render() {
 
         <main class="favorites-screen">
           <div class="products-screen__nav">
-            <h2 class="products-screen__heading">Favoritos</h2>
+            <h2 class="products-screen__heading">${t('navFavoritos')}</h2>
           </div>
 
           <section class="products-container">
@@ -505,7 +508,6 @@ function render() {
     `;
 
     setupProductCardEvents();
-
     setupBottomNavEvents();
     return;
   }
@@ -567,7 +569,7 @@ function render() {
     return;
   }
 
-      if (vistaActual === 'whatsapp') {
+  if (vistaActual === 'whatsapp') {
     const producto = productos.find((p) => p.id === productoIdActual);
 
     if (!producto) {
@@ -596,7 +598,7 @@ function render() {
               ${t('whatsappTexto', { vendedor: producto.vendedor, producto: producto.nombre })}
             </p>
             <a href="${linkWhatsapp}" target="_blank" rel="noopener noreferrer" class="whatsapp-screen__open-btn" id="btn-abrir-whatsapp">
-               ${t('whatsappAbrir')}
+              ${t('whatsappAbrir')}
             </a>
           </div>
         </main>

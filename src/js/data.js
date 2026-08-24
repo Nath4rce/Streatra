@@ -5,23 +5,23 @@
 export const categorias = [
   {
     id: 'todos',
-    nombre: 'Todos',
-    icono: '☰'
+    nombreKey: 'cat_all',
+    icono: '/assets/Hamburguesa.png'
   },
   {
     id: 'alimentos',
-    nombre: 'Alimentos',
-    icono: '🍴'
+    nombreKey: 'cat_food',
+    icono: '/assets/Alimentos.png'
   },
   {
     id: 'bisuteria',
-    nombre: 'Bisutería',
-    icono: '💎'
+    nombreKey: 'cat_jewelry',
+    icono: '/assets/Bisuteria.png'
   },
   {
     id: 'papeleria',
-    nombre: 'Papelería',
-    icono: '📖'
+    nombreKey: 'cat_stationery',
+    icono: '/assets/Papeleria.png'
   }
 ];
 
@@ -29,40 +29,40 @@ export const productos = [
   {
     id: 'prod-1',
     nombre: 'Empanadas',
-    descripcion: 'Pollo o Carne, unidad',
+    descripcionKey: 'desc_empanadas',
     categoria: 'alimentos',
     subcategoria: 'comida',
     imagen: '/assets/productos/empanada.png',
-    vendedor: 'Juan Felipe C.',
+    vendedor: 'Juan David P.',
     horario: '10:00am - 2:00pm',
-    telefono: '573155808468'
+    telefono: '573001234567'
   },
   {
     id: 'prod-2',
     nombre: 'Brownies Caseros',
-    descripcion: 'Porción individual',
+    descripcionKey: 'desc_brownies',
     categoria: 'alimentos',
     subcategoria: 'comida',
     imagen: '/assets/productos/brownie.png',
-    vendedor: 'Juan David P.',
-    horario: '10:00am - 2:00pm',
+    vendedor: 'María José R.',
+    horario: '8:00am - 12:00pm',
     telefono: '573009876543'
   },
   {
     id: 'prod-3',
-    nombre: 'Jugos naturales',
-    descripcion: 'Botella 500ml',
+    nombre: 'Jugos Naturales',
+    descripcionKey: 'desc_jugos',
     categoria: 'alimentos',
     subcategoria: 'bebidas',
     imagen: '/assets/productos/jugo.png',
-    vendedor: 'Juan David P.',
-    horario: '10:00am - 2:00pm',
+    vendedor: 'Carlos Andrés M.',
+    horario: '9:00am - 4:00pm',
     telefono: '573105551234'
   },
   {
     id: 'prod-4',
-    nombre: 'Pulsera artesanal',
-    descripcion: 'Ajustable, varios colores',
+    nombre: 'Pulsera tejida artesanal',
+    descripcionKey: 'desc_pulsera',
     categoria: 'bisuteria',
     subcategoria: 'accesorios',
     imagen: '/assets/productos/pulsera.png',
@@ -72,8 +72,8 @@ export const productos = [
   },
   {
     id: 'prod-5',
-    nombre: 'Cuaderno A5',
-    descripcion: 'Hojas cuadriculadas',
+    nombre: 'Cuaderno de notas A5',
+    descripcionKey: 'desc_cuaderno',
     categoria: 'papeleria',
     subcategoria: 'utiles',
     imagen: '/assets/productos/cuaderno.png',
