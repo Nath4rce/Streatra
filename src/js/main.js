@@ -107,7 +107,7 @@ function renderBottomNav() {
         <span class="bottom-nav__label">${t('navHome')}</span>
       </button>
       <button class="bottom-nav__item ${vistaActual === 'favoritos' ? 'bottom-nav__item--active' : ''}" data-nav="favoritos">
-        <span class="bottom-nav__icon">🤍</span>
+        <span class="bottom-nav__icon">${vistaActual === 'favoritos' ? '❤️' : '🤍'}</span>
         <span class="bottom-nav__label">${t('navFavoritos')}</span>
       </button>
       <button class="bottom-nav__item ${vistaActual === 'ajustes' ? 'bottom-nav__item--active' : ''}" data-nav="ajustes">
