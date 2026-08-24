@@ -362,7 +362,7 @@ function render() {
           <span class="modal-card__icon">💬</span>
           <h3 class="modal-card__title">¿Ir a WhatsApp?</h3>
           <p class="modal-card__text">
-             ${t('modalWppText', { vendedor: producto.vendedor, producto: producto.nombre })}
+             ${t('modalWppText', { vendedor: producto.vendedor})}
           </p>
           </p>
           <div class="modal-card__actions">
@@ -399,7 +399,8 @@ function render() {
             <div class="product-detail__seller-box">
               <p class="product-detail__seller-label">${t('vendedorLabel')}</p>
               <p class="product-detail__seller-name">${producto.vendedor}</p>
-              <p class="product-detail__seller-schedule">${t('horarioLabel', { horario: producto.horario })}</p>
+              <p class="product-detail__seller-label product-detail__seller-label--horario">${t('horarioTitle')}</p>
+              <p class="product-detail__seller-name">${producto.horario}</p>
             </div>
 
             <div class="product-detail__actions">

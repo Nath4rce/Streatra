@@ -330,3 +330,25 @@ $color-whatsapp: #25d366;
     }
   }
 }
+
+.language-selector {
+  display: flex;
+  gap: $spacing-xs;
+
+  &__btn {
+    padding: $spacing-xs $spacing-sm;
+    border: 1px solid $color-border;
+    border-radius: $radius-small;
+    background-color: $color-surface;
+    color: $color-text-secondary;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &--active {
+      background-color: $color-primary;
+      color: $color-surface;
+      border-color: $color-primary;
+    }
+  }
+}
