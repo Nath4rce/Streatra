@@ -70,3 +70,62 @@ h3 {
 p {
   font-size: $font-size-base;
 }
+
+body.dark-mode {
+  background-color: $color-background-dark;
+  color: $color-text-dark;
+
+  // Contenedores / superficies
+    .home-header,
+  .settings-screen__item,
+  .settings-screen__group-title,
+  .product-card,
+  .product-detail,
+  .product-detail__seller-box,
+  .bottom-nav,
+  .categories-container,
+  .category-card,
+  .products-screen__nav,
+  .products-screen__heading,
+  .products-screen__back-btn,
+  .search-input,
+  .filter-chip,
+  .modal-card,
+  .favorites-screen__empty {
+    background-color: $color-surface-dark;
+    border-color: $color-border-dark;
+    color: $color-text-dark;
+  }
+
+  // Textos secundarios/apagados
+  .settings-screen__item-value,
+  .product-card__description,
+  .product-detail__description,
+  .product-detail__seller-label,
+  .product-detail__seller-schedule,
+  .categories-section__title {
+    color: $color-text-secondary-dark;
+  }
+
+  // Textos que tienen color propio explícito y deben forzarse
+  .product-card__name,
+  .category-card__name,
+  .products-screen__heading,
+  .settings-screen__item-label,
+  .modal-card__title,
+  .product-detail__name,
+  .product-detail__seller-name {
+    color: $color-text-dark;
+  }
+
+  // El botón "Todos" activo debe mantener su color de acento, no volverse oscuro
+  .filter-chip--active {
+    background-color: $color-primary;
+    color: $color-surface-dark;
+  }
+
+  // El input de búsqueda necesita placeholder legible
+  .search-input::placeholder {
+    color: $color-text-secondary-dark;
+  }
+}

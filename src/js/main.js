@@ -8,6 +8,7 @@ import { categorias, productos } from './data.js';
 
 const app = document.getElementById('app');
 const FAVORITOS_KEY = 'streatra_favoritos';
+const TEMA_KEY = 'streatra_tema';
 
 let vistaActual = 'splash';
 let categoriaActual = 'todos';
@@ -16,6 +17,32 @@ let terminoBusqueda = '';
 let productoIdActual = null;
 let modalInfoAbierto = false; // Controla la visibilidad del modal "Ver más información"
 let modalWhatsappAbierto = false; // Controla la visibilidad del modal "¿Ir a WhatsApp?"
+
+function cargarTema() {
+  try {
+    return localStorage.getItem(TEMA_KEY) === 'oscuro';
+  } catch (error) {
+    console.error('Error al cargar tema desde localStorage:', error);
+    return false;
+  }
+}
+
+function toggleModoOscuro() {
+  modoOscuro = !modoOscuro;
+  try {
+    localStorage.setItem(TEMA_KEY, modoOscuro ? 'oscuro' : 'claro');
+  } catch (error) {
+    console.error('Error al guardar tema en localStorage:', error);
+  }
+  aplicarTema();
+  render();
+}
+
+function aplicarTema() {
+  document.body.classList.toggle('dark-mode', modoOscuro);
+}
+
+let modoOscuro = cargarTema();
 
 function cargarFavoritos() {
   try {
@@ -517,7 +544,14 @@ function render() {
             <h3 class="settings-screen__group-title">Apariencia</h3>
             <div class="settings-screen__item">
               <span class="settings-screen__item-label">Modo oscuro</span>
-              <span class="settings-screen__item-value">Próximamente</span>
+              <button
+                class="settings-toggle ${modoOscuro ? 'settings-toggle--active' : ''}"
+                id="btn-toggle-tema"
+                aria-label="Alternar modo oscuro"
+                aria-pressed="${modoOscuro}"
+              >
+                <span class="settings-toggle__thumb"></span>
+              </button>
             </div>
           </section>
 
@@ -532,6 +566,11 @@ function render() {
         ${renderBottomNav()}
       </div>
     `;
+
+    document.getElementById('btn-toggle-tema').addEventListener('click', () => {
+      toggleModoOscuro();
+    });
+    
     setupBottomNavEvents();
     return;
   }
@@ -581,4 +620,5 @@ function render() {
 }
 
 // Render inicial
+aplicarTema();
 render();
