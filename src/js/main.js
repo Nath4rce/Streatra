@@ -197,7 +197,7 @@ function render() {
     app.innerHTML = `
       <div class="main-content-wrapper">
         <header class="home-header">
-          <h1 class="home-header__brand">Streatra</h1>
+          <img src="/assets/streatra-wordmark.png" alt="Streatra" class="home-header__logo" />
         </header>
 
         <main class="home-content">
@@ -278,7 +278,7 @@ function render() {
     app.innerHTML = `
       <div class="main-content-wrapper">
         <header class="home-header">
-          <h1 class="home-header__brand">Streatra</h1>
+          <img src="/assets/streatra-wordmark.png" alt="Streatra" class="home-header__logo" />
         </header>
 
         <main class="products-screen">
@@ -386,7 +386,7 @@ function render() {
     app.innerHTML = `
       <div class="main-content-wrapper">
         <header class="home-header">
-          <h1 class="home-header__brand">Streatra</h1>
+          <img src="/assets/streatra-wordmark.png" alt="Streatra" class="home-header__logo" />
         </header>
 
         <main class="products-screen">
@@ -489,7 +489,7 @@ function render() {
     app.innerHTML = `
       <div class="main-content-wrapper">
         <header class="home-header">
-          <h1 class="home-header__brand">Streatra</h1>
+          <img src="/assets/streatra-wordmark.png" alt="Streatra" class="home-header__logo" />
         </header>
 
         <main class="favorites-screen">
@@ -516,7 +516,7 @@ function render() {
     app.innerHTML = `
       <div class="main-content-wrapper">
         <header class="home-header">
-          <h1 class="home-header__brand">Streatra</h1>
+          <img src="/assets/streatra-wordmark.png" alt="Streatra" class="home-header__logo" />
         </header>
 
         <main class="settings-screen">
