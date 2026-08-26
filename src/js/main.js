@@ -119,6 +119,7 @@ function renderBottomNav() {
 
 function renderProductCard(prod) {
   const esFavorito = favoritos.includes(String(prod.id));
+  const nombreTraducido = t(prod.nombreKey);
   const descripcionTraducida = t(prod.descripcionKey);
 
   return `
@@ -127,7 +128,7 @@ function renderProductCard(prod) {
         <span class="product-card__thumb-icon">📦</span>
       </div>
       <div class="product-card__content">
-        <h3 class="product-card__name">${prod.nombre}</h3>
+        <h3 class="product-card__name">${nombreTraducido}</h3>
         <p class="product-card__description">${descripcionTraducida}</p>
       </div>
       <button class="product-card__favorite-btn" data-id="${prod.id}" aria-label="Favorito">
@@ -155,7 +156,8 @@ function setupProductCardEvents() {
 function setupBottomNavEvents() {
   document.querySelectorAll('.bottom-nav__item').forEach((item) => {
     item.addEventListener('click', () => {
-      navegarA(item.dataset.nav);
+      const destino = item.dataset.nav;
+      navegarA(destino);
     });
   });
 }
@@ -242,7 +244,7 @@ function render() {
       ? productosPorSubcategoria
       : productosPorSubcategoria.filter((p) => {
           const desc = t(p.descripcionKey).toLowerCase();
-          const nom = p.nombre.toLowerCase();
+          const nom = t(p.nombreKey).toLowerCase();
           return nom.includes(terminoNormalizado) || desc.includes(terminoNormalizado);
         });
 
@@ -349,6 +351,7 @@ function render() {
       return;
     }
 
+    const nombreTraducido = t(producto.nombreKey);
     const descripcionTraducida = t(producto.descripcionKey);
 
     const modalHTML = modalInfoAbierto ? `
@@ -403,7 +406,7 @@ function render() {
               </button>
             </div>
 
-            <h2 class="product-detail__name">${producto.nombre}</h2>
+            <h2 class="product-detail__name">${nombreTraducido}</h2>
             <p class="product-detail__description">${descripcionTraducida}</p>
 
             <div class="product-detail__seller-box">
@@ -581,8 +584,9 @@ function render() {
       return;
     }
 
+    const nombreTraducido = t(producto.nombreKey);
     const mensaje = encodeURIComponent(
-      `Hola ${producto.vendedor}, vi tu producto de: "${producto.nombre}" en la app Streatra y quiero conocer más información al respecto de este producto.`
+      `Hola ${producto.vendedor}, vi tu producto de: "${nombreTraducido}" en la app Streatra y quiero conocer más información al respecto de este producto.`
     );
     const linkWhatsapp = `https://wa.me/${producto.telefono}?text=${mensaje}`;
 
@@ -595,7 +599,7 @@ function render() {
             <span class="whatsapp-screen__icon">💬</span>
             <h2 class="whatsapp-screen__title">${t('whatsappConectando')}</h2>
             <p class="whatsapp-screen__text">
-              ${t('whatsappTexto', { vendedor: producto.vendedor, producto: producto.nombre })}
+              ${t('whatsappTexto', { vendedor: producto.vendedor, producto: nombreTraducido })}
             </p>
             <a href="${linkWhatsapp}" target="_blank" rel="noopener noreferrer" class="whatsapp-screen__open-btn" id="btn-abrir-whatsapp">
               ${t('whatsappAbrir')}

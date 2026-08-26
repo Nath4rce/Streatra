@@ -28,7 +28,7 @@ export const categorias = [
 export const productos = [
   {
     id: 'prod-1',
-    nombre: 'Empanadas',
+    nombreKey: 'prod_empanadas_name',
     descripcionKey: 'desc_empanadas',
     categoria: 'alimentos',
     subcategoria: 'comida',
@@ -39,7 +39,7 @@ export const productos = [
   },
   {
     id: 'prod-2',
-    nombre: 'Brownies Caseros',
+    nombreKey: 'prod_brownies_name',
     descripcionKey: 'desc_brownies',
     categoria: 'alimentos',
     subcategoria: 'comida',
@@ -50,7 +50,7 @@ export const productos = [
   },
   {
     id: 'prod-3',
-    nombre: 'Jugos Naturales',
+    nombreKey: 'prod_jugos_name',
     descripcionKey: 'desc_jugos',
     categoria: 'alimentos',
     subcategoria: 'bebidas',
@@ -61,7 +61,7 @@ export const productos = [
   },
   {
     id: 'prod-4',
-    nombre: 'Pulsera tejida artesanal',
+    nombreKey: 'prod_pulsera_name',
     descripcionKey: 'desc_pulsera',
     categoria: 'bisuteria',
     subcategoria: 'accesorios',
@@ -72,7 +72,7 @@ export const productos = [
   },
   {
     id: 'prod-5',
-    nombre: 'Cuaderno de notas A5',
+    nombreKey: 'prod_cuaderno_name',
     descripcionKey: 'desc_cuaderno',
     categoria: 'papeleria',
     subcategoria: 'utiles',
