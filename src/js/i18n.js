@@ -33,6 +33,8 @@ export const traducciones = {
     prod_jugos_name: 'Jugos Naturales',
     prod_pulsera_name: 'Pulsera tejida artesanal',
     prod_cuaderno_name: 'Cuaderno de notas A5',
+    prod_sandwich_name: 'Sandwich Artesanal Mixto',
+    prod_cafe_name: 'Café Caliente con Galleta',
 
     // Descripciones
     desc_empanadas: 'Pollo o Carne, unidad',
@@ -40,6 +42,8 @@ export const traducciones = {
     desc_jugos: 'Botella 500ml (Mora, Mango, Fresa)',
     desc_pulsera: 'Diseño ajustable hecho a mano',
     desc_cuaderno: '80 hojas cuadriculadas ecológicas',
+    desc_sandwich: 'Jamón, queso, lechuga y salsa especial en pan baguette',
+    desc_cafe: 'Vaso de 8oz recién preparado con galleta artesanal',
 
     detalleTitle: 'Detalles de la tienda',
     vendedorLabel: 'Vendedor',
@@ -90,6 +94,8 @@ export const traducciones = {
     prod_jugos_name: 'Natural Juices',
     prod_pulsera_name: 'Handmade Woven Bracelet',
     prod_cuaderno_name: 'A5 Notebook',
+    prod_sandwich_name: 'Artisan Mixed Sandwich',
+    prod_cafe_name: 'Hot Coffee with Cookie',
 
     // Descripciones
     desc_empanadas: 'Chicken or Beef, 1 unit',
@@ -97,6 +103,8 @@ export const traducciones = {
     desc_jugos: '500ml bottle (Blackberry, Mango, Strawberry)',
     desc_pulsera: 'Handmade adjustable design',
     desc_cuaderno: '80 eco-friendly grid pages',
+    desc_sandwich: 'Ham, cheese, lettuce and special sauce on baguette',
+    desc_cafe: 'Freshly brewed 8oz cup served with handmade cookie',
 
     detalleTitle: 'Shop details',
     vendedorLabel: 'Seller',

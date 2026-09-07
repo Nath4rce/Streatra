@@ -80,5 +80,27 @@ export const productos = [
     vendedor: 'Santiago G.',
     horario: '1:00pm - 5:00pm',
     telefono: '573017778899'
+  },
+  {
+    id: 'prod-6',
+    nombreKey: 'prod_sandwich_name',
+    descripcionKey: 'desc_sandwich',
+    categoria: 'alimentos',
+    subcategoria: 'comida',
+    imagen: '/assets/productos/sandwich.png',
+    vendedor: 'Felipe Cano',
+    horario: '9:00am - 4:00pm',
+    telefono: '573155808468'
+  },
+  {
+    id: 'prod-7',
+    nombreKey: 'prod_cafe_name',
+    descripcionKey: 'desc_cafe',
+    categoria: 'alimentos',
+    subcategoria: 'bebidas',
+    imagen: '/assets/productos/cafe.png',
+    vendedor: 'Federico Gomez',
+    horario: '8:00am - 3:00pm',
+    telefono: '573009876543'
   }
 ];

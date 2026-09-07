@@ -57,24 +57,118 @@
 }
 
 // ===================================
+// Pantalla: 03 Lista de Productos (Añadida para corregir buscador y scroll)
+// ===================================
+.products-screen {
+  padding: $spacing-md;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 65px); // Alto exacto descontando el header superior
+  overflow-y: auto;           // Impide que la pantalla completa se mueva
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    flex-shrink: 0;           // Mantiene fija la barra de título
+    margin-bottom: $spacing-xs;
+  }
+
+  &__back-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: $color-text;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__heading {
+    font-size: 18px;
+    font-weight: 700;
+    color: $color-text;
+    margin: 0;
+  }
+
+  &__search {
+    margin-top: $spacing-sm;
+    margin-bottom: $spacing-sm;
+    flex-shrink: 0;           // Mantiene fija la barra de búsqueda
+  }
+}
+
+.product-filters {
+  display: flex;
+  gap: $spacing-sm;
+  overflow-x: auto;
+  padding-bottom: $spacing-xs;
+  margin-bottom: $spacing-sm;
+  flex-shrink: 0;             // Mantiene fijos los chips de subcategorías
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.products-container {
+  flex: 1;                    // Ocupa todo el espacio restante disponible
+  overflow-y: auto;           // Activa el desplazamiento únicamente para los productos
+  padding-right: 6px;         // Espacio para que la barra de scroll no toque las tarjetas
+  padding-bottom: 90px;       // Espacio inferior para no chocar con el bottom-nav
+
+  // Scrollbar visible y estilizado a la derecha
+  scrollbar-width: thin;
+  scrollbar-color: rgba($color-primary, 0.4) transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 999px;
+  }
+}
+
+.products-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+// ===================================
 // Pantalla: 04 Detalle de Producto
 // ===================================
 .product-detail {
-  padding: $spacing-md;
-  box-sizing: border-box;
-  max-width: 400px;
+  width: 100%;
+  max-width: 440px;
   margin: 0 auto;
+  padding: 0 $spacing-xs;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  overflow: hidden; // BLOQUEA CUALQUIER INTENTO DE SCROLL EN ESTA VISTA
+  height: 100%;
 
   &__hero {
     position: relative;
     width: 100%;
-    height: 220px;
+    height: 200px;  // Reducimos ligeramente la altura para que encaje perfecto en cualquier celular
     background-color: #E6E6E6;
     border-radius: $radius-large;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: $spacing-lg;
+    margin-bottom: $spacing-md;
+    flex-shrink: 0;
   }
 
   &__hero-icon {
@@ -169,7 +263,6 @@
       transform: scale(0.98);
     }
 
-    // Botón secundario: Ver más información
     &--info {
       background-color: $color-surface;
       color: $color-text;
@@ -182,7 +275,6 @@
       }
     }
 
-    // Botón principal: Comprar por WhatsApp
     &--whatsapp {
       background-color: #25D366;
       color: #ffffff;
@@ -291,6 +383,41 @@ $color-whatsapp: #25d366;
 }
 
 .favorites-screen {
+  padding: $spacing-md;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 65px); // Misma altura descontando el header
+  overflow: hidden;
+
+  .products-screen__nav {
+    flex-shrink: 0;           // Título fijo arriba
+    margin-bottom: $spacing-md;
+  }
+
+  .products-container {
+    flex: 1;
+    overflow-y: auto;         // Scroll individual con barra a la derecha
+    padding-right: 6px;
+    padding-bottom: 90px;
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba($color-primary, 0.4) transparent;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 999px;
+    }
+  }
+
   &__empty {
     text-align: center;
     color: $color-text-secondary;
@@ -298,14 +425,29 @@ $color-whatsapp: #25d366;
   }
 }
 
+// ===================================
+// Pantalla: 05 Ajustes / Settings (Corregida con padding lateral)
+// ===================================
 .settings-screen {
-  &__group {
+  padding: $spacing-md;       // PADDING GENERAL PARA QUE NO SE PEGUE AL BORDE
+  padding-bottom: 90px;
+  box-sizing: border-box;
+
+  .products-screen__nav {
     margin-bottom: $spacing-lg;
+  }
+
+  &__group {
+    margin-bottom: $spacing-xl;
 
     &-title {
-      font-size: $font-size-md;
-      color: $color-text;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: $color-text-secondary;
       margin-bottom: $spacing-sm;
+      padding-left: 2px;     // Evita que la primera letra toque el borde de la pantalla
     }
   }
 
@@ -313,10 +455,11 @@ $color-whatsapp: #25d366;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $spacing-md;
+    padding: $spacing-md $spacing-lg;
     background-color: $color-surface;
-    border-radius: $radius-medium;
+    border-radius: $radius-large;
     border: 1px solid $color-border;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     margin-bottom: $spacing-sm;
 
     &-label {

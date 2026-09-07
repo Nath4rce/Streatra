@@ -47,7 +47,20 @@ function bindGlobalEvents() {
   document.querySelectorAll('.product-card__favorite-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      toggleFavorito(btn.dataset.id, render);
+      const id = btn.dataset.id;
+      
+      // Si estamos en la vista de favoritos, sí redibujamos para que desaparezca la tarjeta
+      if (state.vistaActual === 'favoritos') {
+        toggleFavorito(id, render);
+      } else {
+        // En la lista de productos o catálogo general:
+        // Guardamos en estado y localStorage sin disparar render() para no perder el scroll
+        toggleFavorito(id, () => {});
+        
+        // Alternamos el corazón visualmente en la misma tarjeta
+        const esFav = state.favoritos.includes(String(id));
+        btn.textContent = esFav ? '❤️' : '🤍';
+      }
     });
   });
 }
@@ -64,8 +77,21 @@ function bindViewEvents() {
 
     document.querySelectorAll('.filter-chip').forEach((chip) => {
       chip.addEventListener('click', () => {
+        // 1. Guardamos la posición exacta del scroll horizontal actual
+        const filtersContainer = document.querySelector('.product-filters');
+        const scrollPos = filtersContainer ? filtersContainer.scrollLeft : 0;
+
+        // 2. Cambiamos el filtro y renderizamos
         state.filtroSubcategoria = chip.dataset.filtro;
         render();
+
+        // 3. Restauramos la posición al instante antes del siguiente frame visual
+        requestAnimationFrame(() => {
+          const updatedContainer = document.querySelector('.product-filters');
+          if (updatedContainer) {
+            updatedContainer.scrollLeft = scrollPos;
+          }
+        });
       });
     });
 

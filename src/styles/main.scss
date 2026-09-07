@@ -5,3 +5,21 @@
 @use 'cards';
 @use 'screens';
 @use 'modals';
+
+/* Desactiva el destello azul al hacer tap en dispositivos móviles */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Elimina el borde azul o de enfoque al hacer clic en botones o elementos */
+button, 
+a, 
+input, 
+.product-card, 
+.product-card__favorite-btn {
+  outline: none !important;
+  
+  &:focus, &:active {
+    outline: none !important;
+  }
+}
