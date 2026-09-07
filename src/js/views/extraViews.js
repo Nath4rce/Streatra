@@ -84,10 +84,15 @@ export function renderWhatsAppView() {
   }
 
   const nombreTraducido = t(producto.nombreKey);
-  const mensaje = encodeURIComponent(
-    `Hola ${producto.vendedor}, vi tu producto de: "${nombreTraducido}" en la app Streatra y quiero conocer más información al respecto de este producto.`
-  );
-  const linkWhatsapp = `https://wa.me/${producto.telefono}?text=${mensaje}`;
+  
+  // Obtenemos el texto traducido según el idioma activo (es / en)
+  const textoMensaje = t('whatsappMensaje', {
+    vendedor: producto.vendedor,
+    producto: nombreTraducido
+  });
+
+  const mensajeCodificado = encodeURIComponent(textoMensaje);
+  const linkWhatsapp = `https://wa.me/${producto.telefono}?text=${mensajeCodificado}`;
 
   return `
     <div class="main-content-wrapper">

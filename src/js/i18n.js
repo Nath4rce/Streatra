@@ -59,6 +59,7 @@ export const traducciones = {
     whatsappConectando: 'Conectando con la tienda',
     whatsappTexto: 'Estás a punto de comunicarte con {vendedor} para realizar tu pedido de "{producto}".',
     whatsappAbrir: 'Abrir chat de WhatsApp',
+    whatsappMensaje: '¡Hola, {vendedor}! Vi tu producto "{producto}" en Streatra y me gustaría coordinar la compra.',
 
     ajustesTitle: 'Ajustes',
     apariencia: 'Apariencia',
@@ -120,6 +121,7 @@ export const traducciones = {
     whatsappConectando: 'Connecting with the store',
     whatsappTexto: 'You are about to connect with {vendedor} to order "{producto}".',
     whatsappAbrir: 'Open WhatsApp chat',
+    whatsappMensaje: 'Hello {vendedor}! I saw your product "{producto}" on Streatra and I would like to place an order.',
 
     ajustesTitle: 'Settings',
     apariencia: 'Appearance',
